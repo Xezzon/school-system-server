@@ -1,14 +1,13 @@
 package indi.xezzon.school.model;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import indi.xezzon.school.constant.enums.AccountStatusEnum;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 账号
@@ -43,4 +42,12 @@ public class Account implements Serializable {
     private LocalDateTime updatedTime;
     
     private static final long serialVersionUID = 1L;
+    
+    public Account(String username, String cipher, AccountStatusEnum status, LocalDateTime createdTime, LocalDateTime updatedTime) {
+        this.username = username;
+        this.cipher = cipher;
+        this.status = status;
+        this.createdTime = createdTime;
+        this.updatedTime = updatedTime;
+    }
 }
