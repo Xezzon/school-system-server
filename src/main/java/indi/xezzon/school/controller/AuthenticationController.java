@@ -5,10 +5,7 @@ import indi.xezzon.school.service.AuthenticationService;
 import lombok.Data;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author xezzon
@@ -32,6 +29,11 @@ public class AuthenticationController {
     public String login(@RequestBody LoginVO loginVO) {
         service.login(loginVO.getUsername(), loginVO.getCipher(), loginVO.getRememberMe());
         return (String)SecurityUtils.getSubject().getSession().getId();
+    }
+    
+    @GetMapping ("/logout")
+    public void logout() {
+        service.logout();
     }
 }
 

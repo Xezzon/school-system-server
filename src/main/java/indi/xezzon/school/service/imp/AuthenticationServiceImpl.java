@@ -46,6 +46,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Subject subject = SecurityUtils.getSubject();
         subject.login(token);
     }
+    
+    @Override
+    public void logout() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+    }
 }
 
 @PropertySource("classpath:config/passport.properties")

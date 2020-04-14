@@ -20,4 +20,9 @@ public interface AuthenticationService {
      *                   由于username、cipher、rememberMe用在了三个不同的地方，所以在设计Service接口时接收三个参数，同时也方便了Controller层
      */
     void login(String username, String cipher, boolean rememberMe);
+    
+    /**
+     * 登出
+     */
+    void logout();
 }
