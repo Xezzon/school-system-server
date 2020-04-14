@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.xezzon.school.repository.AccountMapper">
+    <resultMap id="BaseResultMap" type="indi.xezzon.school.model.Account">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="cipher" jdbcType="CHAR" property="cipher"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, username, cipher, status, created_time, updated_time
+  </sql>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="indi.xezzon.school.model.Account"
+            useGeneratedKeys="true">
+    insert into account (username, cipher, status,
+      created_time, updated_time)
+    values (#{username,jdbcType=VARCHAR}, #{cipher,jdbcType=CHAR}, #{status,jdbcType=TINYINT}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+    <select id="selectByUsername" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from account
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByPrimaryKey" parameterType="indi.xezzon.school.model.Account">
+        update account
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="cipher != null">
+                cipher = #{cipher,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>
