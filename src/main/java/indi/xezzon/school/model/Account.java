@@ -2,6 +2,7 @@ package indi.xezzon.school.model;
 
 import indi.xezzon.school.constant.enums.AccountStatusEnum;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
  *
  * @author xezzon
  */
-@Data
+@Data @NoArgsConstructor
 public class Account implements Serializable {
     private Long id;
     
