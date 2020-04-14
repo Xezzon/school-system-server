@@ -19,7 +19,7 @@
     values (#{username,jdbcType=VARCHAR}, #{cipher,jdbcType=CHAR}, #{status,jdbcType=TINYINT}, 
       #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
-    <select id="selectByUsername" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from account
