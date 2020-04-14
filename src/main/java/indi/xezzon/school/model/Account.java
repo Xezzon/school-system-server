@@ -43,12 +43,4 @@ public class Account implements Serializable {
     private LocalDateTime updatedTime;
     
     private static final long serialVersionUID = 1L;
-    
-    public Account(String username, String cipher, AccountStatusEnum status, LocalDateTime createdTime, LocalDateTime updatedTime) {
-        this.username = username;
-        this.cipher = cipher;
-        this.status = status;
-        this.createdTime = createdTime;
-        this.updatedTime = updatedTime;
-    }
 }

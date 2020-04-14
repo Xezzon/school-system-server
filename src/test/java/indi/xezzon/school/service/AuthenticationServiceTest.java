@@ -1,6 +1,7 @@
 package indi.xezzon.school.service;
 
 import cn.hutool.core.util.RandomUtil;
+import indi.xezzon.school.model.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ class AuthenticationServiceTest {
     @Test
     void register() {
         String text = RandomUtil.randomString(12);
-        service.register(text, text);
+        Account account = new Account();
+        account.setUsername(text);
+        account.setCipher(text);
+        service.register(account);
     }
 }

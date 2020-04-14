@@ -1,13 +1,14 @@
 package indi.xezzon.school.service;
 
+import indi.xezzon.school.model.Account;
+
 /**
  * @author xezzon
  */
 public interface AuthenticationService {
     /**
      * 注册
-     * @param username 用户名
-     * @param cipher 密码
+     * @param account 用户名、密码
      */
-    void register(String username, String cipher);
+    void register(Account account);
 }

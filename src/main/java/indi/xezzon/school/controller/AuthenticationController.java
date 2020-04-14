@@ -21,7 +21,7 @@ public class AuthenticationController {
     }
     
     @PostMapping ("/register")
-    public void register(@RequestBody String username, @RequestBody String cipher) {
-        service.register(username, cipher);
+    public void register(@RequestBody Account account) {
+        service.register(account);
     }
 }

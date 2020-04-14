@@ -28,8 +28,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
     
     @Override
-    public void register(String username, String cipher) {
-        Account account = new Account(username, hashHandler.hash(cipher), AccountStatusEnum.NORMAL, LocalDateTime.now(), LocalDateTime.now());
+    public void register(Account account) {
+        account.setCipher(hashHandler.hash(account.getUsername()));
+        account.setStatus(AccountStatusEnum.NORMAL);
+        LocalDateTime now = LocalDateTime.now();
+        account.setCreatedTime(now);
+        account.setUpdatedTime(now);
         mapper.insert(account);
     }
 }
