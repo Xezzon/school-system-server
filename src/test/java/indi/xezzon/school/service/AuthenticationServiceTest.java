@@ -21,5 +21,6 @@ class AuthenticationServiceTest {
         account.setUsername(text);
         account.setCipher(text);
         service.register(account);
+        assert true;
     }
 }
