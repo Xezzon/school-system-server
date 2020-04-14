@@ -5,6 +5,9 @@ import indi.xezzon.school.constant.enums.AccountStatusEnum;
 import indi.xezzon.school.model.Account;
 import indi.xezzon.school.repository.AccountMapper;
 import indi.xezzon.school.service.AuthenticationService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -35,6 +38,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         account.setCreatedTime(now);
         account.setUpdatedTime(now);
         mapper.insert(account);
+    }
+    
+    @Override
+    public void login(String username, String cipher, boolean rememberMe) {
+        UsernamePasswordToken token = new UsernamePasswordToken(username, cipher, rememberMe);
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(token);
     }
 }
 
