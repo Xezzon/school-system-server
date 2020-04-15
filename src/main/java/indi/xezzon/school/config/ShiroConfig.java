@@ -9,10 +9,7 @@ import indi.xezzon.school.repository.AccountMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.mgt.RememberMeManager;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
@@ -33,6 +30,7 @@ import java.util.UUID;
 
 /**
  * Shiro配置，主要是过滤器和SecurityManager
+ *
  * @author xezzon
  */
 @Configuration
@@ -41,12 +39,12 @@ public class ShiroConfig {
      * @return 权限过滤器
      */
     @Bean
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilter() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
-    
+        shiroFilterFactoryBean.setSecurityManager(securityManager());
+        
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-    
+        
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
@@ -57,9 +55,9 @@ public class ShiroConfig {
     }
     
     @Bean
-    public ShiroRealm shiroRealm(CredentialsMatcher credentialsMatcher) {
+    public ShiroRealm shiroRealm() {
         ShiroRealm shiroRealm = new ShiroRealm();
-        shiroRealm.setCredentialsMatcher(credentialsMatcher);
+        shiroRealm.setCredentialsMatcher(credentialsMatcher());
         return shiroRealm;
     }
     
@@ -79,18 +77,18 @@ public class ShiroConfig {
     }
     
     @Bean
-    public CookieRememberMeManager rememberMeManager(SimpleCookie rememberMeCookie) {
+    public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager rememberMeManager = new CookieRememberMeManager();
-        rememberMeManager.setCookie(rememberMeCookie);
+        rememberMeManager.setCookie(rememberMeCookie());
         return rememberMeManager;
     }
     
     @Bean
-    public DefaultWebSecurityManager securityManager(ShiroRealm shiroRealm, SessionManager sessionManager, RememberMeManager rememberMeManager) {
+    public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(shiroRealm);
-        securityManager.setSessionManager(sessionManager);
-        securityManager.setRememberMeManager(rememberMeManager);
+        securityManager.setRealm(shiroRealm());
+        securityManager.setSessionManager(sessionManager());
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
     }
 }
@@ -103,7 +101,7 @@ class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
         StubDO stub = accountMapper.selectStubByUsername(token.getUsername());
-    
+        
         if (ObjectUtil.isNull(stub)) {
             throw new UnknownAccountException("用户不存在");
         }
@@ -126,12 +124,12 @@ class ShiroRealm extends AuthorizingRealm {
 class TokenSessionManager extends DefaultWebSessionManager {
     @Override
     protected Serializable getSessionId(ServletRequest servletRequest, ServletResponse servletResponse) {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletRequest request = (HttpServletRequest)servletRequest;
         String token = request.getHeader("X-XSRF-TOKEN");
-        if(StrUtil.isBlank(token)){
+        if (StrUtil.isBlank(token)) {
             token = UUID.randomUUID().toString();
         }
-    
+        
         request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, ShiroHttpServletRequest.URL_SESSION_ID_SOURCE);
         request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, token);
         request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
