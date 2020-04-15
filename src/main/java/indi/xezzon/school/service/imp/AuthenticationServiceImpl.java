@@ -56,12 +56,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 /**
  * 注册时，对密码进行加密
+ *
  * @author xezzon
  */
-@PropertySource("classpath:config/passport.properties")
+@PropertySource ("classpath:config/passport.properties")
 @Component
 class CipherHashHandler {
-    @Value("${bcrypt.hash-times:10}")
+    @Value ("${bcrypt.hash-times:10}")
     private int hashTimes;
     
     public String hash(String plaintext) {

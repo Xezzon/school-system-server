@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface AccountMapper {
     /**
      * 新建一个账号
+     *
      * @param record 用户名、密码
      * @return 账号id
      */
@@ -18,6 +19,7 @@ public interface AccountMapper {
     
     /**
      * 查询账号
+     *
      * @param id 账号id
      * @return 账号信息
      */
@@ -25,6 +27,7 @@ public interface AccountMapper {
     
     /**
      * 获取principal和credential
+     *
      * @param username 用户名
      * @return id：principal；cipher：credential
      */
@@ -32,6 +35,7 @@ public interface AccountMapper {
     
     /**
      * 修改密码、状态，自动更新updatedTime，危险操作：修改用户名
+     *
      * @param record 用户id、修改的信息
      * @return 修改的行数
      */

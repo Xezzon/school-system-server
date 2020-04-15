@@ -11,11 +11,12 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * 启动类
+ *
  * @author xezzon
  */
 @SpringBootApplication
 @ServletComponentScan
-@MapperScan("indi.xezzon.school.repository")
+@MapperScan ("indi.xezzon.school.repository")
 public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
@@ -28,7 +29,7 @@ public class Application extends SpringBootServletInitializer {
     
     @Bean
     public ServletContextInitializer servletContextInitializer() {
-        return  servletContext -> {
+        return servletContext -> {
         
         };
     }

@@ -8,12 +8,14 @@ import indi.xezzon.school.model.Account;
 public interface AuthenticationService {
     /**
      * 注册
+     *
      * @param account 用户名、密码
      */
     void register(Account account);
     
     /**
      * 登陆
+     *
      * @param username   用户名
      * @param cipher     密码
      * @param rememberMe 是否记住登陆状态

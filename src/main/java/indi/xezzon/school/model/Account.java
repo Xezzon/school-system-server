@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
  *
  * @author xezzon
  */
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class Account implements Serializable {
     private Long id;
     
