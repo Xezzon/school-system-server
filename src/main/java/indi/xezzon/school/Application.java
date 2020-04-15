@@ -9,6 +9,10 @@ import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * 启动类
+ * @author xezzon
+ */
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan("indi.xezzon.school.repository")

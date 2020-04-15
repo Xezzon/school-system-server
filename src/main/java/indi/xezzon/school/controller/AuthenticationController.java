@@ -37,6 +37,10 @@ public class AuthenticationController {
     }
 }
 
+/**
+ * 作为login函数的接收参数
+ * @author xezzon
+ */
 @Data
 class LoginVO {
     private String username;

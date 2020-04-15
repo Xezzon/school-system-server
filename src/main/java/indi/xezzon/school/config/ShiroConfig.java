@@ -31,8 +31,15 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.UUID;
 
+/**
+ * Shiro配置，主要是过滤器和SecurityManager
+ * @author xezzon
+ */
 @Configuration
 public class ShiroConfig {
+    /**
+     * @return 权限过滤器
+     */
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -66,6 +73,7 @@ public class ShiroConfig {
     @Bean
     public SimpleCookie rememberMeCookie() {
         SimpleCookie cookie = new SimpleCookie("rememberMe");
+        // 记住登陆状态10天
         cookie.setMaxAge(10 * 24 * 60 * 60);
         return cookie;
     }
@@ -112,6 +120,9 @@ class ShiroRealm extends AuthorizingRealm {
     }
 }
 
+/**
+ * 使用token替代cookie作为会话管理的媒介，避开CSRF攻击
+ */
 class TokenSessionManager extends DefaultWebSessionManager {
     @Override
     protected Serializable getSessionId(ServletRequest servletRequest, ServletResponse servletResponse) {
@@ -128,6 +139,9 @@ class TokenSessionManager extends DefaultWebSessionManager {
     }
 }
 
+/**
+ * Bcrypt密码验证器
+ */
 class BcryptPasswordMatcher implements CredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo authenticationInfo) {

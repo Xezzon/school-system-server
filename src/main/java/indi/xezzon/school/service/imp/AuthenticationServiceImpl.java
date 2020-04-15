@@ -54,6 +54,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 }
 
+/**
+ * 注册时，对密码进行加密
+ * @author xezzon
+ */
 @PropertySource("classpath:config/passport.properties")
 @Component
 class CipherHashHandler {
