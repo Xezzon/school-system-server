@@ -16,14 +16,19 @@
             useGeneratedKeys="true">
     insert into account (username, cipher, status,
       created_time, updated_time)
-    values (#{username,jdbcType=VARCHAR}, #{cipher,jdbcType=CHAR}, #{status,jdbcType=TINYINT}, 
+    values (#{username,jdbcType=VARCHAR}, #{cipher,jdbcType=CHAR}, #{status,jdbcType=TINYINT},
       #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
-    <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from account
-        where username = #{username,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectStubByUsername" resultType="indi.xezzon.school.model.StubDO">
+        SELECT id, cipher, status
+        FROM account
+        WHERE username = #{username,jdbcType=VARCHAR}
     </select>
     <update id="updateByPrimaryKey" parameterType="indi.xezzon.school.model.Account">
         update account

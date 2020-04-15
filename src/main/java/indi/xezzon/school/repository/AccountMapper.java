@@ -1,6 +1,7 @@
 package indi.xezzon.school.repository;
 
 import indi.xezzon.school.model.Account;
+import indi.xezzon.school.model.StubDO;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,10 +18,17 @@ public interface AccountMapper {
     
     /**
      * 查询账号
-     * @param username 用户名
+     * @param id 账号id
      * @return 账号信息
      */
-    Account selectByUsername(String username);
+    Account selectByPrimaryKey(Long id);
+    
+    /**
+     * 获取principal和credential
+     * @param username 用户名
+     * @return id：principal；cipher：credential
+     */
+    StubDO selectStubByUsername(String username);
     
     /**
      * 修改密码、状态，自动更新updatedTime，危险操作：修改用户名

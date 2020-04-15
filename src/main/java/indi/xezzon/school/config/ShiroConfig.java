@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import indi.xezzon.school.constant.enums.AccountStatusEnum;
-import indi.xezzon.school.model.Account;
+import indi.xezzon.school.model.StubDO;
 import indi.xezzon.school.repository.AccountMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
@@ -65,9 +65,7 @@ public class ShiroConfig {
     
     @Bean
     public SimpleCookie rememberMeCookie() {
-        SimpleCookie cookie = new SimpleCookie();
-        cookie.setName("RememberMeCookie");
-        cookie.setHttpOnly(true);
+        SimpleCookie cookie = new SimpleCookie("rememberMe");
         cookie.setMaxAge(10 * 24 * 60 * 60);
         return cookie;
     }
@@ -96,18 +94,16 @@ class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
-        Account principal = accountMapper.selectByUsername(token.getUsername());
+        StubDO stub = accountMapper.selectStubByUsername(token.getUsername());
     
-        if (ObjectUtil.isNull(principal)) {
+        if (ObjectUtil.isNull(stub)) {
             throw new UnknownAccountException("用户不存在");
         }
-        if (principal.getStatus() == AccountStatusEnum.LOCKED) {
+        if (stub.getStatus() == AccountStatusEnum.LOCKED) {
             throw new LockedAccountException("账号已被锁定");
         }
-    
-        String credentials = principal.getCipher();
-        principal.setCipher(null);
-        return new SimpleAuthenticationInfo(principal, credentials, this.getName());
+        
+        return new SimpleAuthenticationInfo(stub.getId(), stub.getCipher(), this.getName());
     }
     
     @Override
