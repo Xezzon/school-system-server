@@ -2,6 +2,7 @@ package indi.xezzon.school.passport.service;
 
 import cn.hutool.core.util.RandomUtil;
 import indi.xezzon.school.passport.model.Account;
+import org.apache.shiro.SecurityUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ class AuthenticationServiceTest {
         assert true;
     }
     
-    // void login() {}
-    // 不测了，单测的时候怎么都过不了，报错为UnavailableSecurityManager。集测过了。
+    @Test
+    void login() {
+        service.login("test", "test001", false);
+        assert SecurityUtils.getSubject().isAuthenticated();
+    }
 }
