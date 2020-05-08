@@ -5,6 +5,7 @@ import indi.xezzon.school.passport.service.AuthenticationService;
 import lombok.Data;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -21,6 +22,7 @@ public class AuthenticationController {
     }
     
     @PostMapping ("/register")
+    @ResponseStatus (HttpStatus.CREATED)
     public void register(@RequestBody Account account) {
         service.register(account);
     }
@@ -32,6 +34,7 @@ public class AuthenticationController {
     }
     
     @GetMapping ("/logout")
+    @ResponseStatus (HttpStatus.NO_CONTENT)
     public void logout() {
         service.logout();
     }
