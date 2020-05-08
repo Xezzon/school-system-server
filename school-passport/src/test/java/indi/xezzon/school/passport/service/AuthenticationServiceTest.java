@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
-@RunWith(SpringRunner.class)
+@RunWith (SpringRunner.class)
 @SpringBootTest
 public class AuthenticationServiceTest {
     @Autowired
@@ -26,6 +26,7 @@ public class AuthenticationServiceTest {
     // 解决测试环境下Shiro报错的问题，方法来源： https://www.oschina.net/question/4934_48690
     @Resource
     SecurityManager securityManager;
+    
     @Before
     public void before() {
         ThreadContext.bind(securityManager);
@@ -63,5 +64,19 @@ public class AuthenticationServiceTest {
         } catch (IncorrectCredentialsException ice) {
             assert true;
         }
+    }
+    
+    @Test
+    public void modifyCipher() {
+        service.login("test", "test001", false);
+        service.modifyCipher("test001");
+    }
+    
+    @Test
+    public void logout() {
+        service.login("test", "test001", false);
+        assert SecurityUtils.getSubject().isAuthenticated();
+        service.logout();
+        assert !SecurityUtils.getSubject().isAuthenticated();
     }
 }
