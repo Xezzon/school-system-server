@@ -10,8 +10,7 @@
         <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id
-        , username, cipher, status, created_time, updated_time
+        id, username, cipher, status, created_time, updated_time
     </sql>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="indi.xezzon.school.passport.model.Account"
             useGeneratedKeys="true">
