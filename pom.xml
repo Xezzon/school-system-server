@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
     <name>school-system</name>
     <modules>
-
+        <module>school-passport</module>
     </modules>
 
     <properties>

@@ -1,10 +1,10 @@
 server:
   address: 127.0.0.1
   port: 8080
+  forward-headers-strategy: native
   tomcat:
-    remote-ip-header: x-forwarded-for
-    protocol-header: x-forwarded-proto
-    port-header: X-Forwarded-Port
+    remote-ip-header: X-Real-IP
+    protocol-header: X-Forwarded-Proto
 
 spring:
   mvc:
