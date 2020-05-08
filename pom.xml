@@ -9,6 +9,7 @@
     <name>school-system</name>
     <modules>
         <module>school-passport</module>
+        <module>school-common</module>
     </modules>
 
     <properties>
