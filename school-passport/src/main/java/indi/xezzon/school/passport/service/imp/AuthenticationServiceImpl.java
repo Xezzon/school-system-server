@@ -52,6 +52,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
     }
+    
+    @Override
+    public void modifyCipher(String cipher) {
+        Subject subject = SecurityUtils.getSubject();
+        Long accountId = (Long)subject.getPrincipal();
+        Account account = new Account();
+        account.setId(accountId);
+        account.setCipher(hashHandler.hash(cipher));
+        mapper.updateByPrimaryKey(account);
+    }
 }
 
 /**

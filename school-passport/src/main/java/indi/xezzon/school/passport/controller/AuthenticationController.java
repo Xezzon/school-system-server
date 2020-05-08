@@ -38,6 +38,12 @@ public class AuthenticationController {
     public void logout() {
         service.logout();
     }
+    
+    @PutMapping ("/cipher")
+    @ResponseStatus (HttpStatus.NO_CONTENT)
+    public void modifyCipher(@RequestBody String cipher) {
+        service.modifyCipher(cipher);
+    }
 }
 
 /**

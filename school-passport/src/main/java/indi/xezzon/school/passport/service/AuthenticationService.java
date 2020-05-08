@@ -27,4 +27,11 @@ public interface AuthenticationService {
      * 登出
      */
     void logout();
+    
+    /**
+     * 修改密码
+     *
+     * @param cipher 新密码
+     */
+    void modifyCipher(String cipher);
 }
