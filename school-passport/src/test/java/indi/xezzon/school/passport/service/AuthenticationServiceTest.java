@@ -3,6 +3,8 @@ package indi.xezzon.school.passport.service;
 import cn.hutool.core.util.RandomUtil;
 import indi.xezzon.school.passport.model.Account;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.util.ThreadContext;
 import org.junit.Before;
@@ -10,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -36,11 +39,29 @@ public class AuthenticationServiceTest {
         account.setCipher(text);
         service.register(account);
         assert true;
+        try {
+            Account account1 = new Account();
+            account1.setUsername("test");
+            account1.setCipher("test001");
+            service.register(account1);
+        } catch (DuplicateKeyException e) {
+            assert true;
+        }
     }
     
     @Test
     public void login() {
         service.login("test", "test001", false);
         assert SecurityUtils.getSubject().isAuthenticated();
+        try {
+            service.login("hel", "wor", false);
+        } catch (UnknownAccountException uae) {
+            assert true;
+        }
+        try {
+            service.login("test", "test", false);
+        } catch (IncorrectCredentialsException ice) {
+            assert true;
+        }
     }
 }
