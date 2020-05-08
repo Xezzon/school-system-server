@@ -55,10 +55,10 @@ public class ShiroConfig {
     }
     
     @Bean
-    public ShiroRealm shiroRealm() {
-        ShiroRealm shiroRealm = new ShiroRealm();
-        shiroRealm.setCredentialsMatcher(credentialsMatcher());
-        return shiroRealm;
+    public NormalRealm normalRealm() {
+        NormalRealm normalRealm = new NormalRealm();
+        normalRealm.setCredentialsMatcher(credentialsMatcher());
+        return normalRealm;
     }
     
     @Bean
@@ -86,14 +86,14 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(shiroRealm());
+        securityManager.setRealm(normalRealm());
         securityManager.setSessionManager(sessionManager());
         securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
     }
 }
 
-class ShiroRealm extends AuthorizingRealm {
+class NormalRealm extends AuthorizingRealm {
     @Autowired
     private AccountMapper accountMapper;
     
