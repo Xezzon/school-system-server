@@ -4,11 +4,16 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import indi.xezzon.school.passport.constant.enums.AccountStatusEnum;
+import indi.xezzon.school.passport.model.Permission;
+import indi.xezzon.school.passport.model.Role;
 import indi.xezzon.school.passport.model.StubDO;
 import indi.xezzon.school.passport.repository.AccountMapper;
+import indi.xezzon.school.passport.repository.PermissionMapper;
+import indi.xezzon.school.passport.repository.RoleMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -26,7 +31,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Shiro配置，主要是过滤器和SecurityManager
@@ -96,6 +103,10 @@ public class ShiroConfig {
 class NormalRealm extends AuthorizingRealm {
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private RoleMapper roleMapper;
+    @Autowired
+    private PermissionMapper permissionMapper;
     
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
@@ -114,7 +125,18 @@ class NormalRealm extends AuthorizingRealm {
     
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        Long accountId = (Long)principalCollection.getPrimaryPrincipal();
+        Set<Role> roles = roleMapper.selectByAccountId(accountId);
+        Set<Permission> permissions = permissionMapper.selectByRoles(roles);
+        
+        // 使用流式编程取出roles和permissions对应的字段
+        Set<String> rolesName = roles.stream().map(Role::getName).collect(Collectors.toSet());
+        Set<String> permissionsResource = permissions.stream().map(Permission::getResource).collect(Collectors.toSet());
+        
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setRoles(rolesName);
+        info.setStringPermissions(permissionsResource);
+        return info;
     }
 }
 
