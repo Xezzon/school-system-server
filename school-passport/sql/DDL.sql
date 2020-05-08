@@ -16,10 +16,10 @@ CREATE TABLE `account`
 CREATE TABLE `role`
 (
     `id`          int(10) unsigned NOT NULL AUTO_INCREMENT,
-    `role`        varchar(32)      NOT NULL COMMENT '角色',
+    `name`        varchar(32)      NOT NULL COMMENT '角色',
     `description` varchar(16)      NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `role_name_uindex` (`role`)
+    UNIQUE KEY `role_name_uindex` (`name`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
@@ -36,10 +36,10 @@ CREATE TABLE `account_role`
 CREATE TABLE `permission`
 (
     `id`          int(10) unsigned NOT NULL AUTO_INCREMENT,
-    `permission`  varchar(64)      NOT NULL COMMENT '资源描述',
+    `resource`    varchar(64)      NOT NULL COMMENT '资源描述',
     `description` varchar(16)      NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `permission_permission_uindex` (`permission`)
+    UNIQUE KEY `permission_permission_uindex` (`resource`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
