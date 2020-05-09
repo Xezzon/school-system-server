@@ -4,8 +4,8 @@ CREATE TABLE `account`
     `username`     varchar(20)         NOT NULL COMMENT '用户名',
     `cipher`       char(60)            NOT NULL COMMENT '密码',
     `status`       tinyint(4)          NOT NULL DEFAULT 0 COMMENT '账号状态',
-    `created_time` timestamp           NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-    `updated_time` timestamp           NOT NULL DEFAULT current_timestamp(),
+    `created_time` timestamp           NOT NULL DEFAULT current_timestamp() COMMENT '注册时间',
+    `updated_time` timestamp           NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '修改时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `account_username_uindex` (`username`)
 ) ENGINE = InnoDB
