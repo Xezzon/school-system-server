@@ -22,7 +22,7 @@
         DELETE
         FROM role_permission
         WHERE role_id = #{roleId}
-          AND permission_id = #{permissionId};
+          AND permission_id = #{permissionId}
     </delete>
     <select id="selectByRoles" resultType="indi.xezzon.school.passport.model.Permission">
         SELECT
@@ -34,11 +34,11 @@
         <foreach collection="set" item="role" open="(" close=")">
             #{role.id}
         </foreach>) rp
-        ON rp.permission_id = permission.id;
+        ON rp.permission_id = permission.id
     </select>
     <select id="list" resultType="indi.xezzon.school.passport.model.Permission">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM permission;
+        FROM permission
     </select>
 </mapper>

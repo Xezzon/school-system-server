@@ -16,12 +16,12 @@
         (SELECT role_id
         FROM account_role
         where account_id = #{accountId}) ar
-        ON ar.role_id = role.id;
+        ON ar.role_id = role.id
     </select>
     <select id="list" resultType="indi.xezzon.school.passport.model.Role">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM role;
+        FROM role
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
