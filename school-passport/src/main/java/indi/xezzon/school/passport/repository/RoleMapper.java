@@ -61,7 +61,7 @@ public interface RoleMapper {
      * @param rolesId   角色
      * @return 修改的记录数
      */
-    int insertAccountRoleRel(@Param ("accountId") Long accountId, @Param ("rolesId") List<Integer> rolesId);
+    int insertAccountRoleRel(@Param ("accountId") Long accountId, @Param ("rolesId") Set<Integer> rolesId);
     
     /**
      * 删除用户的角色

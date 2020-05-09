@@ -35,7 +35,7 @@ public interface PermissionMapper {
      * @param permissionsId 权限
      * @return 修改的记录数
      */
-    int insertRolePermissionRel(@Param ("roleId") Integer roleId, @Param ("permissionsId") List<Integer> permissionsId);
+    int insertRolePermissionRel(@Param ("roleId") Integer roleId, @Param ("permissionsId") Set<Integer> permissionsId);
     
     /**
      * 减少角色的权限
