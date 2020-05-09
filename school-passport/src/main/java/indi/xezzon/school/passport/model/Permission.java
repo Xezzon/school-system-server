@@ -1,5 +1,6 @@
 package indi.xezzon.school.passport.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,6 +28,7 @@ public class Permission implements Serializable {
     @JsonDeserialize (using = PermissionIdJsonDeserializer.class)
     private Integer id;
     
+    @JsonIgnore
     private String resource;
     
     private String description;

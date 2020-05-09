@@ -1,5 +1,7 @@
 package indi.xezzon.school.passport.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,10 +30,12 @@ public class Role implements Serializable {
     @JsonDeserialize (using = RoleIdJsonDeserializer.class)
     private Integer id;
     
+    @JsonIgnore
     private String name;
     
     private String description;
     
+    @JsonInclude (JsonInclude.Include.NON_NULL)
     private Set<Permission> permissions;
     
     private static final long serialVersionUID = 1L;
