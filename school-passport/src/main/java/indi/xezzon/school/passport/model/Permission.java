@@ -13,6 +13,7 @@ import lombok.Data;
 import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ public class Permission implements Serializable {
 }
 
 @PropertySource ("classpath*:config/hashids.properties")
+@Component
 class PermissionIdJsonSerializer extends JsonSerializer<Integer> {
     @Value ("${permission}")
     private String salt;
@@ -45,6 +47,7 @@ class PermissionIdJsonSerializer extends JsonSerializer<Integer> {
 }
 
 @PropertySource ("classpath*:config/hashids.properties")
+@Component
 class PermissionIdJsonDeserializer extends JsonDeserializer<Integer> {
     @Value ("${permission}")
     private String salt;

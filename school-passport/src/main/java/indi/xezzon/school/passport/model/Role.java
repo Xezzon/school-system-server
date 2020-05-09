@@ -13,6 +13,7 @@ import indi.xezzon.school.common.util.HashidsUtil;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -37,6 +38,7 @@ public class Role implements Serializable {
 }
 
 @PropertySource ("classpath*:config/hashids.properties")
+@Component
 class RoleIdJsonSerializer extends JsonSerializer<Integer> {
     @Value ("${role}")
     private String salt;
@@ -48,6 +50,7 @@ class RoleIdJsonSerializer extends JsonSerializer<Integer> {
 }
 
 @PropertySource ("classpath*:config/hashids.properties")
+@Component
 class RoleIdJsonDeserializer extends JsonDeserializer<Integer> {
     @Value ("${role}")
     private String salt;
