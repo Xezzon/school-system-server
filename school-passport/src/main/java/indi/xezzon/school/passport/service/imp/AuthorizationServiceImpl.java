@@ -36,6 +36,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
     
     @Override
+    public List<Permission> listPermission() {
+        return permissionMapper.list();
+    }
+    
+    @Override
     public void addRole(Role role) {
         roleMapper.insert(role);
         Integer roleId = role.getId();
