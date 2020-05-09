@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import indi.xezzon.school.common.util.HashidsUtil;
 import lombok.Data;
-import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 
@@ -43,9 +43,7 @@ class RoleIdJsonSerializer extends JsonSerializer<Integer> {
     
     @Override
     public void serialize(Integer integer, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        Hashids hashids = new Hashids(salt);
-        String id = hashids.encode(integer);
-        jsonGenerator.writeString(id);
+        jsonGenerator.writeString(HashidsUtil.encode(integer, salt));
     }
 }
 
@@ -56,7 +54,6 @@ class RoleIdJsonDeserializer extends JsonDeserializer<Integer> {
     
     @Override
     public Integer deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-        Hashids hashids = new Hashids(salt);
-        return (int)hashids.decode(jsonParser.getText())[0];
+        return (int)HashidsUtil.decode(jsonParser.getText(), salt);
     }
 }
