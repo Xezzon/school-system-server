@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 @Data
 public class Role implements Serializable {
-    private Long id;
+    private Integer id;
     
     private String name;
     
