@@ -1,11 +1,10 @@
 package indi.xezzon.school.passport.controller;
 
+import indi.xezzon.school.common.model.PageResult;
 import indi.xezzon.school.passport.model.Role;
 import indi.xezzon.school.passport.service.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author xezzon
@@ -18,6 +17,14 @@ public class AuthorizationController {
     @Autowired
     public AuthorizationController(AuthorizationService service) {
         this.service = service;
+    }
+    
+    /**
+     * TODO:分页查询所有角色
+     */
+    @GetMapping (value = "/roles")
+    public PageResult<Role> listRole(@RequestParam ("page") int page, @RequestParam ("pageSize") int pageSize) {
+        return PageResult.from(service.listRole(page, pageSize));
     }
     
     /**
