@@ -34,7 +34,7 @@ public class Permission implements Serializable {
     private static final long serialVersionUID = 1L;
 }
 
-@PropertySource ("classpath*:config/hashids.properties")
+@PropertySource ("classpath:config/hashids.properties")
 @Component
 class PermissionIdJsonSerializer extends JsonSerializer<Integer> {
     @Value ("${permission}")
@@ -46,7 +46,7 @@ class PermissionIdJsonSerializer extends JsonSerializer<Integer> {
     }
 }
 
-@PropertySource ("classpath*:config/hashids.properties")
+@PropertySource ("classpath:config/hashids.properties")
 @Component
 class PermissionIdJsonDeserializer extends JsonDeserializer<Integer> {
     @Value ("${permission}")

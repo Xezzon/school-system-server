@@ -37,7 +37,7 @@ public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
 }
 
-@PropertySource ("classpath*:config/hashids.properties")
+@PropertySource ("classpath:config/hashids.properties")
 @Component
 class RoleIdJsonSerializer extends JsonSerializer<Integer> {
     @Value ("${role}")
@@ -49,7 +49,7 @@ class RoleIdJsonSerializer extends JsonSerializer<Integer> {
     }
 }
 
-@PropertySource ("classpath*:config/hashids.properties")
+@PropertySource ("classpath:config/hashids.properties")
 @Component
 class RoleIdJsonDeserializer extends JsonDeserializer<Integer> {
     @Value ("${role}")
