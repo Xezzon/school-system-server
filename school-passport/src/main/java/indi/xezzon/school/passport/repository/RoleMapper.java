@@ -44,7 +44,7 @@ public interface RoleMapper {
     List<Role> list();
     
     /* 以上方法对应role表操作 */
-    /* 以下方法对应account_role表操作 */
+    /* 以下方法对应account_role_rel表操作 */
     
     /**
      * 查询用户对应的所有角色

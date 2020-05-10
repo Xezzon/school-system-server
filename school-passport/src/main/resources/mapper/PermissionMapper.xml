@@ -10,7 +10,7 @@
         id, resource, description
     </sql>
     <insert id="insertRolePermissionRel">
-        INSERT INTO role_permission VALUES
+        INSERT INTO role_permission_rel VALUES
         <foreach collection="permissionsId" item="permissionId" open="(" close=")">
             (#{roleId}, #{permissionId})
         </foreach>
@@ -20,7 +20,7 @@
     </update>
     <delete id="deleteRolePermissionRel">
         DELETE
-        FROM role_permission
+        FROM role_permission_rel
         WHERE role_id = #{roleId}
           AND permission_id = #{permissionId}
     </delete>
@@ -29,7 +29,7 @@
         <include refid="Base_Column_List"/>
         FROM permission RIGHT JOIN
         (SELECT permission_id
-        FROM role_permission
+        FROM role_permission_rel
         WHERE role_id IN
         <foreach collection="set" item="role" open="(" close=")">
             #{role.id}

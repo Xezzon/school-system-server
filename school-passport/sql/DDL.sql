@@ -44,7 +44,7 @@ CREATE TABLE `permission`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
-CREATE TABLE `role_permission`
+CREATE TABLE `role_permission_rel`
 (
     `role_id`       int(10) unsigned NOT NULL,
     `permission_id` int(10) unsigned NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `role_permission`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
-CREATE TABLE `root_permission`
+CREATE TABLE `root_permission_rel`
 (
     `id`          int(10) unsigned NOT NULL AUTO_INCREMENT,
     `resource`    varchar(64)      NOT NULL,

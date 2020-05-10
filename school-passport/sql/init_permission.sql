@@ -4,7 +4,7 @@ INSERT INTO account(id, username, cipher)
 
 # 生成系统管理员角色并赋值给上述用户
 INSERT INTO role(id, name, description) VALUE (0, 'root', '系统管理员');
-INSERT INTO account_role(account_id, role_id) VALUE (0, 0);
+INSERT INTO account_role_rel(account_id, role_id) VALUE (0, 0);
 
 # 添加并赋予系统管理员的权限
 TRUNCATE root_permission;

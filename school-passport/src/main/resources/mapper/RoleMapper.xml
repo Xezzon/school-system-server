@@ -14,7 +14,7 @@
         <include refid="Base_Column_List"/>
         FROM role RIGHT JOIN
         (SELECT role_id
-        FROM account_role
+        FROM account_role_rel
         where account_id = #{accountId}) ar
         ON ar.role_id = role.id
     </select>
@@ -30,7 +30,7 @@
     </delete>
     <delete id="deleteAccountRoleRel">
         DELETE
-        FROM account_role
+        FROM account_role_rel
         WHERE account_id = #{accountId}
           AND role_id = #{roleId}
     </delete>
@@ -40,7 +40,7 @@
         values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
     </insert>
     <insert id="insertAccountRoleRel">
-        INSERT INTO account_role VALUES
+        INSERT INTO account_role_rel VALUES
         <foreach collection="rolesId" item="roleId" open="(" close=")">
             (#{accountId}, #{roleId})
         </foreach>
