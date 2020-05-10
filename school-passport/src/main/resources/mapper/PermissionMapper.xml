@@ -41,4 +41,9 @@
         <include refid="Base_Column_List"/>
         FROM permission
     </select>
+    <select id="listRootPermission" resultType="indi.xezzon.school.passport.model.Permission">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM root_permission;
+    </select>
 </mapper>

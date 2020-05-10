@@ -52,3 +52,14 @@ CREATE TABLE `role_permission`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE `root_permission`
+(
+    `id`          int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `resource`    varchar(64)      NOT NULL,
+    `description` varchar(16)      NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `root_permission_resource_uindex` (`resource`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci

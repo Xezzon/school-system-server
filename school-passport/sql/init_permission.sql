@@ -7,13 +7,9 @@ INSERT INTO role(id, name, description) VALUE (0, 'root', '系统管理员');
 INSERT INTO account_role(account_id, role_id) VALUE (0, 0);
 
 # 添加并赋予系统管理员的权限
-INSERT INTO permission(resource, description)
+TRUNCATE root_permission;
+INSERT INTO root_permission(resource, description)
 VALUES ('log:read', '查看日志');
-INSERT INTO role_permission(role_id, permission_id)
-SELECT rp.role_id, permission.id
-FROM permission
-         CROSS JOIN
-         (SELECT 0 AS role_id) AS rp;
 
 # 添加剩余的所有权限
 INSERT INTO permission(resource, description)

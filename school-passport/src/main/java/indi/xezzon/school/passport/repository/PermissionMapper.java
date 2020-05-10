@@ -52,4 +52,11 @@ public interface PermissionMapper {
      * @return 修改的记录数
      */
     int updateRolePermissionRel();
+    
+    /**
+     * 查询系统管理员权限
+     *
+     * @return 系统管理员权限
+     */
+    Set<Permission> listRootPermission();
 }

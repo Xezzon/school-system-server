@@ -30,6 +30,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
 import java.util.UUID;
@@ -108,6 +109,8 @@ class NormalRealm extends AuthorizingRealm {
     @Autowired
     private PermissionMapper permissionMapper;
     
+    private static final String ROOT_ACCOUNT_ROLE = "root";
+    
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
@@ -126,11 +129,20 @@ class NormalRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         Long accountId = (Long)principalCollection.getPrimaryPrincipal();
-        Set<Role> roles = roleMapper.selectByAccountId(accountId);
-        Set<Permission> permissions = permissionMapper.selectByRoles(roles);
         
-        // 使用流式编程取出roles和permissions对应的字段
+        // 查询角色
+        Set<Role> roles = roleMapper.selectByAccountId(accountId);
+        // 使用流式编程取出roles的name字段
         Set<String> rolesName = roles.stream().map(Role::getName).collect(Collectors.toSet());
+        
+        // 查询权限
+        Set<Permission> permissions = new HashSet<>();
+        // 系统管理员权限单查
+        if (rolesName.contains(ROOT_ACCOUNT_ROLE)) {
+            permissions.addAll(permissionMapper.listRootPermission());
+        }
+        permissions.addAll(permissionMapper.selectByRoles(roles));
+        // 使用流式编程的方式取出permissions的resource字段
         Set<String> permissionsResource = permissions.stream().map(Permission::getResource).collect(Collectors.toSet());
         
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
