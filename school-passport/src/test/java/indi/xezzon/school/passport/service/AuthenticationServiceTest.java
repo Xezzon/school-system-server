@@ -1,7 +1,7 @@
 package indi.xezzon.school.passport.service;
 
 import cn.hutool.core.util.RandomUtil;
-import indi.xezzon.school.passport.model.Account;
+import indi.xezzon.school.common.model.Account;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;

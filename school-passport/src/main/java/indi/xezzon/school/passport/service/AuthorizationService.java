@@ -1,8 +1,8 @@
 package indi.xezzon.school.passport.service;
 
 import com.github.pagehelper.PageInfo;
-import indi.xezzon.school.passport.model.Permission;
-import indi.xezzon.school.passport.model.Role;
+import indi.xezzon.school.common.model.Permission;
+import indi.xezzon.school.common.model.Role;
 
 import java.util.List;
 

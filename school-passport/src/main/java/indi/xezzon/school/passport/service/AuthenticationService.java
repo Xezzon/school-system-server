@@ -1,6 +1,6 @@
 package indi.xezzon.school.passport.service;
 
-import indi.xezzon.school.passport.model.Account;
+import indi.xezzon.school.common.model.Account;
 
 /**
  * @author xezzon

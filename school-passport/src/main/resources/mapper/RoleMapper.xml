@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indi.xezzon.school.passport.repository.RoleMapper">
-    <resultMap id="BaseResultMap" type="indi.xezzon.school.passport.model.Role">
+    <resultMap id="BaseResultMap" type="indi.xezzon.school.common.model.Role">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
@@ -9,7 +9,7 @@
     <sql id="Base_Column_List">
         id, name, description
     </sql>
-    <select id="selectByAccountId" resultType="indi.xezzon.school.passport.model.Role">
+    <select id="selectByAccountId" resultType="indi.xezzon.school.common.model.Role">
         SELECT
         <include refid="Base_Column_List"/>
         FROM role RIGHT JOIN
@@ -18,7 +18,7 @@
         where account_id = #{accountId}) ar
         ON ar.role_id = role.id
     </select>
-    <select id="list" resultType="indi.xezzon.school.passport.model.Role">
+    <select id="list" resultType="indi.xezzon.school.common.model.Role">
         SELECT
         <include refid="Base_Column_List"/>
         FROM role
@@ -34,7 +34,7 @@
         WHERE account_id = #{accountId}
           AND role_id = #{roleId}
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="indi.xezzon.school.passport.model.Role"
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="indi.xezzon.school.common.model.Role"
             useGeneratedKeys="true">
         insert into role (name, description)
         values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
@@ -45,7 +45,7 @@
             (#{accountId}, #{roleId})
         </foreach>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="indi.xezzon.school.passport.model.Role">
+    <update id="updateByPrimaryKeySelective" parameterType="indi.xezzon.school.common.model.Role">
         update role
         <set>
             <if test="name != null">

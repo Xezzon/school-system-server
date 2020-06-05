@@ -1,7 +1,7 @@
 package indi.xezzon.school.passport.repository;
 
-import indi.xezzon.school.passport.model.Account;
-import indi.xezzon.school.passport.model.StubDO;
+import indi.xezzon.school.common.model.Account;
+import indi.xezzon.school.common.model.StubDO;
 import org.springframework.stereotype.Repository;
 
 /**

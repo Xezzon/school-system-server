@@ -1,8 +1,8 @@
 package indi.xezzon.school.passport.service.imp;
 
 import cn.hutool.crypto.digest.BCrypt;
-import indi.xezzon.school.passport.constant.enums.AccountStatusEnum;
-import indi.xezzon.school.passport.model.Account;
+import indi.xezzon.school.common.constant.enums.AccountStatusEnum;
+import indi.xezzon.school.common.model.Account;
 import indi.xezzon.school.passport.repository.AccountMapper;
 import indi.xezzon.school.passport.service.AuthenticationService;
 import org.apache.shiro.SecurityUtils;

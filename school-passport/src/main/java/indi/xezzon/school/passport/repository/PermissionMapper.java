@@ -1,7 +1,7 @@
 package indi.xezzon.school.passport.repository;
 
-import indi.xezzon.school.passport.model.Permission;
-import indi.xezzon.school.passport.model.Role;
+import indi.xezzon.school.common.model.Permission;
+import indi.xezzon.school.common.model.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

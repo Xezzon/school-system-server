@@ -1,6 +1,6 @@
-package indi.xezzon.school.passport.model;
+package indi.xezzon.school.common.model;
 
-import indi.xezzon.school.passport.constant.enums.AccountStatusEnum;
+import indi.xezzon.school.common.constant.enums.AccountStatusEnum;
 import lombok.Data;
 
 import java.io.Serializable;

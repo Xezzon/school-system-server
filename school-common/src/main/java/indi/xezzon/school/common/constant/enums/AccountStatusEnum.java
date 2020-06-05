@@ -1,4 +1,4 @@
-package indi.xezzon.school.passport.constant.enums;
+package indi.xezzon.school.common.constant.enums;
 
 /**
  * @author xezzon
@@ -6,9 +6,9 @@ package indi.xezzon.school.passport.constant.enums;
 
 public enum AccountStatusEnum {
     // 账号正常
-    NORMAL,
+    NORMAL, 
     // 账号被锁定
-    LOCKED,
+    LOCKED, 
     // 账号被注销
     CANCELED
 }

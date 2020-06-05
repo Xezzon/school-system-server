@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indi.xezzon.school.passport.repository.PermissionMapper">
-    <resultMap id="BaseResultMap" type="indi.xezzon.school.passport.model.Permission">
+    <resultMap id="BaseResultMap" type="indi.xezzon.school.common.model.Permission">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="resource" jdbcType="VARCHAR" property="resource"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
@@ -24,7 +24,7 @@
         WHERE role_id = #{roleId}
           AND permission_id = #{permissionId}
     </delete>
-    <select id="selectByRoles" resultType="indi.xezzon.school.passport.model.Permission">
+    <select id="selectByRoles" resultType="indi.xezzon.school.common.model.Permission">
         SELECT
         <include refid="Base_Column_List"/>
         FROM permission RIGHT JOIN
@@ -36,12 +36,12 @@
         </foreach>) rp
         ON rp.permission_id = permission.id
     </select>
-    <select id="list" resultType="indi.xezzon.school.passport.model.Permission">
+    <select id="list" resultType="indi.xezzon.school.common.model.Permission">
         SELECT
         <include refid="Base_Column_List"/>
         FROM permission
     </select>
-    <select id="listRootPermission" resultType="indi.xezzon.school.passport.model.Permission">
+    <select id="listRootPermission" resultType="indi.xezzon.school.common.model.Permission">
         SELECT
         <include refid="Base_Column_List"/>
         FROM root_permission;

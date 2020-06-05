@@ -1,8 +1,8 @@
 package indi.xezzon.school.passport.controller;
 
 import indi.xezzon.school.common.model.PageResult;
-import indi.xezzon.school.passport.model.Permission;
-import indi.xezzon.school.passport.model.Role;
+import indi.xezzon.school.common.model.Permission;
+import indi.xezzon.school.common.model.Role;
 import indi.xezzon.school.passport.service.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

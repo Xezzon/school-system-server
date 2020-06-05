@@ -1,4 +1,4 @@
-package indi.xezzon.school.passport.model;
+package indi.xezzon.school.common.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
