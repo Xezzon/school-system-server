@@ -17,14 +17,9 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan ("indi.xezzon.school.passport.repository")
-public class PassportApplication extends SpringBootServletInitializer {
+public class PassportApplication {
     public static void main(String[] args) {
         SpringApplication.run(PassportApplication.class);
-    }
-    
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(PassportApplication.class);
     }
     
     @Bean
