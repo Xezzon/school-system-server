@@ -21,7 +21,7 @@
         <!-- 依赖版本 -->
         <springboot.version>2.2.2.RELEASE</springboot.version>
         <mybatis.version>2.1.1</mybatis.version>
-        <druid.version>1.1.21</druid.version>
+        <druid.version>1.1.23</druid.version>
         <shiro.version>1.4.2</shiro.version>
         <hutool.version>5.1.3</hutool.version>
         <hashids.version>1.0.3</hashids.version>

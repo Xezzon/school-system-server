@@ -15,7 +15,7 @@
         <dependency>
             <groupId>indi.xezzon.school</groupId>
             <artifactId>school-common</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
