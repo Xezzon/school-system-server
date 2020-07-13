@@ -10,6 +10,7 @@
     <modules>
         <module>school-passport</module>
         <module>school-common</module>
+        <module>school-registry</module>
     </modules>
 
     <properties>
