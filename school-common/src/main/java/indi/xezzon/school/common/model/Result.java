@@ -1,8 +1,6 @@
 package indi.xezzon.school.common.model;
 
 import indi.xezzon.school.common.constant.enums.ErrorCodeEnum;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 统一返回结果（非分页）
@@ -10,12 +8,14 @@ import lombok.NoArgsConstructor;
  * @author xezzon
  */
 @Deprecated
-@Data
-@NoArgsConstructor
 public class Result<T> {
     private String code;
     private String message;
     private T data;
+    
+    public Result() {
+        super();
+    }
     
     protected Result(String code, String message, T data) {
         this.code = code;
@@ -59,5 +59,34 @@ public class Result<T> {
      */
     public static <T> Result<T> failed(ErrorCodeEnum errorCode, String message) {
         return new Result<>(errorCode.getCode(), message, null);
+    }
+    
+    public String getCode() {
+        return code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+    
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
+    public T getData() {
+        return data;
+    }
+    
+    public void setData(T data) {
+        this.data = data;
+    }
+    
+    @Override
+    public String toString() {
+        return "Result{" + "code='" + code + '\'' + ", message='" + message + '\'' + ", data=" + data + '}';
     }
 }

@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import indi.xezzon.school.common.util.HashidsUtil;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -24,7 +23,6 @@ import java.util.Set;
 /**
  * @author xezzon
  */
-@Data
 public class Role implements Serializable {
     @JsonSerialize (using = RoleIdJsonSerializer.class)
     @JsonDeserialize (using = RoleIdJsonDeserializer.class)
@@ -39,6 +37,43 @@ public class Role implements Serializable {
     private Set<Permission> permissions;
     
     private static final long serialVersionUID = 1L;
+    
+    public Integer getId() {
+        return id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
+    
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
+    }
+    
+    @Override
+    public String toString() {
+        return "Role{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + ", permissions=" + permissions + '}';
+    }
 }
 
 @PropertySource ("classpath:config/hashids.properties")

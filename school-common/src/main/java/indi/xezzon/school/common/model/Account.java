@@ -1,8 +1,6 @@
 package indi.xezzon.school.common.model;
 
 import indi.xezzon.school.common.constant.enums.AccountStatusEnum;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,8 +13,6 @@ import java.time.LocalDateTime;
  *
  * @author xezzon
  */
-@Data
-@NoArgsConstructor
 public class Account implements Serializable {
     private Long id;
     
@@ -44,4 +40,57 @@ public class Account implements Serializable {
     private LocalDateTime updatedTime;
     
     private static final long serialVersionUID = 1L;
+    
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public String getCipher() {
+        return cipher;
+    }
+    
+    public void setCipher(String cipher) {
+        this.cipher = cipher;
+    }
+    
+    public AccountStatusEnum getStatus() {
+        return status;
+    }
+    
+    public void setStatus(AccountStatusEnum status) {
+        this.status = status;
+    }
+    
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+    
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+    
+    public LocalDateTime getUpdatedTime() {
+        return updatedTime;
+    }
+    
+    public void setUpdatedTime(LocalDateTime updatedTime) {
+        this.updatedTime = updatedTime;
+    }
+    
+    @Override
+    public String toString() {
+        return "Account{" + "id=" + id + ", username='" + username + '\'' + ", cipher='" + cipher + '\'' + ", status=" + status + ", createdTime=" + createdTime + ", updatedTime=" + updatedTime + '}';
+    }
 }

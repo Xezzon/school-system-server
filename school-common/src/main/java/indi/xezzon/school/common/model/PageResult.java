@@ -1,7 +1,6 @@
 package indi.xezzon.school.common.model;
 
 import com.github.pagehelper.PageInfo;
-import lombok.Data;
 
 import java.util.List;
 
@@ -10,7 +9,6 @@ import java.util.List;
  *
  * @author xezzon
  */
-@Data
 public class PageResult<T> {
     private Integer total;
     private Integer page;
@@ -27,5 +25,42 @@ public class PageResult<T> {
         result.setPageSize(pageInfo.getPageSize());
         result.setItems(pageInfo.getList());
         return result;
+    }
+    
+    public Integer getTotal() {
+        return total;
+    }
+    
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+    
+    public Integer getPage() {
+        return page;
+    }
+    
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+    
+    public Integer getPageSize() {
+        return pageSize;
+    }
+    
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+    
+    public List<T> getItems() {
+        return items;
+    }
+    
+    public void setItems(List<T> items) {
+        this.items = items;
+    }
+    
+    @Override
+    public String toString() {
+        return "PageResult{" + "total=" + total + ", page=" + page + ", pageSize=" + pageSize + ", items=" + items + '}';
     }
 }
