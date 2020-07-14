@@ -1,12 +1,10 @@
 package indi.xezzon.school.common.constant.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
 
 /**
  * @author xezzon
  */
-@Getter
 @JsonFormat (shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCodeEnum {
     SUCCESS("00000", "操作成功"),
@@ -23,5 +21,13 @@ public enum ErrorCodeEnum {
     ErrorCodeEnum(String code, String message) {
         this.code = code;
         this.message = message;
+    }
+    
+    public String getCode() {
+        return code;
+    }
+    
+    public String getMessage() {
+        return message;
     }
 }

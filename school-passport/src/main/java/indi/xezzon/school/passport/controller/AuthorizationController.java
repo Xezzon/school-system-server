@@ -27,7 +27,9 @@ public class AuthorizationController {
      */
     @GetMapping ("/roles")
     public PageResult<Role> listRole(@RequestParam ("page") int page, @RequestParam ("pageSize") int pageSize) {
-        return PageResult.from(service.listRole(page, pageSize));
+        PageResult<Role> result = new PageResult<>();
+        result.setItems(service.listRole(page, pageSize));
+        return result;
     }
     
     /**
