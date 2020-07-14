@@ -25,7 +25,6 @@
         <shiro.version>1.5.0</shiro.version>
         <hutool.version>5.3.9</hutool.version>
         <hashids.version>1.0.3</hashids.version>
-        <pagehelper.version>1.2.12</pagehelper.version>
         <!-- 插件版本 -->
         <classfinal.version>1.1.8</classfinal.version>
     </properties>
@@ -42,11 +41,6 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelper.version}</version>
             </dependency>
             <!-- 安全框架Shiro -->
             <dependency>

@@ -1,7 +1,5 @@
 package indi.xezzon.school.passport.service.imp;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import indi.xezzon.school.common.model.Permission;
 import indi.xezzon.school.common.model.Role;
 import indi.xezzon.school.passport.repository.PermissionMapper;
@@ -29,10 +27,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
     
     @Override
-    public PageInfo<Role> listRole(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<Role> roles = roleMapper.list();
-        return new PageInfo<>(roles);
+    public List<Role> listRole(int pageNum, int pageSize) {
+        return roleMapper.list();
     }
     
     @Override

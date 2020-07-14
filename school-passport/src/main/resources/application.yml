@@ -31,12 +31,6 @@ mybatis:
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
   type-handlers-package: indi.xezzon.school.config.typehandler
 
-pagehelper:
-  helper-dialect: mariadb
-  page-size-zero: true
-  reasonable: true
-  support-methods-arguments: true
-
 logging:
   level:
     indi.xezzon.school: debug

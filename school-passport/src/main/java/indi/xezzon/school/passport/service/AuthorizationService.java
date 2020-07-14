@@ -1,6 +1,5 @@
 package indi.xezzon.school.passport.service;
 
-import com.github.pagehelper.PageInfo;
 import indi.xezzon.school.common.model.Permission;
 import indi.xezzon.school.common.model.Role;
 
@@ -18,7 +17,7 @@ public interface AuthorizationService {
      * @param pageSize 每页的记录数
      * @return 查询的角色
      */
-    PageInfo<Role> listRole(int page, int pageSize);
+    List<Role> listRole(int page, int pageSize);
     
     /**
      * 查询所有的权限
