@@ -3,8 +3,9 @@ server:
   port: 8081
   forward-headers-strategy: native
   tomcat:
-    remote-ip-header: X-Real-IP
-    protocol-header: X-Forwarded-Proto
+    remoteip:
+      remote-ip-header: X-Real-IP
+      protocol-header: X-Forwarded-Proto
 
 spring:
   profiles:
