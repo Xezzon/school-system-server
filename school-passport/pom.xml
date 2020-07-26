@@ -79,6 +79,13 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
+                    <image>
+                        <builder>registry.aliyuncs.com/fangzhengjin/paketo-buildpacks-builder:base-platform-api-0.3
+                        </builder>
+                        <!--<builder>registry.aliyuncs.com/paketo-buildpacks/builder:base-platform-api-0.3
+                        </builder>
+                        <runImage>registry.aliyuncs.com/paketo-buildpacks/run:base-cnb</runImage>-->
+                    </image>
                     <layers>
                         <enabled>true</enabled>
                     </layers>
