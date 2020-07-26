@@ -87,33 +87,20 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${springboot.version}</version>
-                <configuration>
-                    <fork>true</fork>
-                    <image>
-                        <builder>registry.aliyuncs.com/fangzhengjin/paketo-buildpacks-builder:base-platform-api-0.3
-                        </builder>
-                        <!--<builder>registry.aliyuncs.com/paketo-buildpacks/builder:base-platform-api-0.3
-                        </builder>
-                        <runImage>registry.aliyuncs.com/paketo-buildpacks/run:base-cnb</runImage>-->
-                    </image>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
-                </configuration>
-            </plugin>
-            <!--<plugin>
-                <groupId>net.roseboy</groupId>
-                <artifactId>classfinal-maven-plugin</artifactId>
-                <version>${classfinal.version}</version>
-                <configuration>
-                    <password>0</password>
-                </configuration>
-            </plugin>-->
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${springboot.version}</version>
+                </plugin>
+                <!-- 字节码加密 -->
+                <plugin>
+                    <groupId>net.roseboy</groupId>
+                    <artifactId>classfinal-maven-plugin</artifactId>
+                    <version>${classfinal.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
