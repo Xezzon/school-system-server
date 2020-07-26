@@ -105,14 +105,14 @@
                     </layers>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>net.roseboy</groupId>
                 <artifactId>classfinal-maven-plugin</artifactId>
                 <version>${classfinal.version}</version>
                 <configuration>
                     <password>0</password>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>
