@@ -1,14 +1,15 @@
 server:
   address: 127.0.0.1
-  port: 9221
+  port: 8081
   forward-headers-strategy: native
   tomcat:
-    remote-ip-header: X-Real-IP
-    protocol-header: X-Forwarded-Proto
+    remoteip:
+      remote-ip-header: X-Real-IP
+      protocol-header: X-Forwarded-Proto
 
 spring:
-  application:
-    name: school-passport
+  profiles:
+    active: ${TOMCAT_ENV:dev}
   mvc:
     servlet:
       load-on-startup: 1
@@ -19,17 +20,6 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3306/school?useUnicode=true&characterEncoding=utf-8&rewriteBatchedStatements=true&serverTimezone=GMT%2B8
-    username: school
-    password: 123456
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:9202/eureka/
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
