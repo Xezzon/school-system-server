@@ -77,31 +77,5 @@
         </resources>
         <outputDirectory>target/classes</outputDirectory>
         <testOutputDirectory>target/test-classes</testOutputDirectory>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                    <image>
-                        <builder>registry.aliyuncs.com/fangzhengjin/paketo-buildpacks-builder:base-platform-api-0.3
-                        </builder>
-                        <!--<builder>registry.aliyuncs.com/paketo-buildpacks/builder:base-platform-api-0.3
-                        </builder>
-                        <runImage>registry.aliyuncs.com/paketo-buildpacks/run:base-cnb</runImage>-->
-                    </image>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>net.roseboy</groupId>
-                <artifactId>classfinal-maven-plugin</artifactId>
-                <configuration>
-                    <password>0</password>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>
