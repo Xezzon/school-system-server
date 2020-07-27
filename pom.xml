@@ -13,6 +13,7 @@
         <module>school-xgb</module>
         <module>school-jwc</module>
         <module>school-registry</module>
+        <module>school-gateway</module>
     </modules>
 
     <properties>
