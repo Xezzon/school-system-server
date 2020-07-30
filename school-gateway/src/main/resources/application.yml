@@ -1,0 +1,20 @@
+server:
+  port: 9201
+spring:
+  application:
+    name: school-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: passport
+          predicates:
+            - Path=/passport/**
+eureka:
+  client:
+    service-url:
+      defualtZone: http://localhost:9202/eureka/
+    registry-fetch-interval-seconds: 10
