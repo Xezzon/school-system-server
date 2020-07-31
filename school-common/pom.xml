@@ -28,5 +28,11 @@
             <groupId>org.hashids</groupId>
             <artifactId>hashids</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>
