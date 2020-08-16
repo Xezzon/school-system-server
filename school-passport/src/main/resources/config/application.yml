@@ -19,6 +19,9 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
+  jackson:
+    property-naming-strategy: KEBAB_CASE
+    default-property-inclusion: non_null
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
