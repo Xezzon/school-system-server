@@ -18,7 +18,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class PageResult<T> {
     private Integer total;
-    private Integer page;
+    private Integer pageNum;
     private Integer pageSize;
     private List<T> items;
 }

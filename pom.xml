@@ -8,12 +8,8 @@
     <packaging>pom</packaging>
     <name>school-system</name>
     <modules>
-        <module>school-passport</module>
         <module>school-common</module>
-        <module>school-xgb</module>
         <module>school-jwc</module>
-        <module>school-registry</module>
-        <module>school-gateway</module>
     </modules>
 
     <properties>
@@ -44,7 +40,7 @@
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
+                <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
             <!-- 安全框架Shiro -->
