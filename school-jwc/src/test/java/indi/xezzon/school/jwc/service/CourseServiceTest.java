@@ -1,5 +1,7 @@
 package indi.xezzon.school.jwc.service;
 
+import indi.xezzon.school.common.model.Course;
+import indi.xezzon.school.common.model.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +18,7 @@ public class CourseServiceTest {
 
     @Test
     public void getAllCourses() {
-        log.debug(service.getAllCourses().toString());
+        PageResult<Course> courses = service.getCoursesPaged(1, 20);
+        log.debug("{}", courses);
     }
 }
