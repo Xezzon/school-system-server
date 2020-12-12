@@ -1,5 +1,7 @@
 package indi.xezzon.school.jwc.repository;
 
+import cn.hutool.core.util.RandomUtil;
+import indi.xezzon.school.common.model.Account;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +18,10 @@ public class AccountMapperTest {
 
     @Test
     public void insert() {
-        
+        String randomStr = RandomUtil.randomString(8);
+        Account account = new Account(randomStr, randomStr);
+        Long id = mapper.insert(account);
+        log.debug("New user id is:{}", id);
+        assert id != null;
     }
 }
