@@ -25,4 +25,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Account account = new Account(username, cipher);
         accountMapper.insert(account);
     }
+
+    @Override
+    public void login(String username, String cipher) {
+
+    }
+
+    @Override
+    public long getCurrentAccountId() {
+        return -1L;
+    }
 }
