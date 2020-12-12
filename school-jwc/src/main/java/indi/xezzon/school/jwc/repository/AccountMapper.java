@@ -12,7 +12,6 @@ public interface AccountMapper {
      * 新增账号
      *
      * @param account 账号信息。其中用户名和密码为必填字段。
-     * @return 新增账号的id
      */
-    Long insert(Account account);
+    void insert(Account account);
 }

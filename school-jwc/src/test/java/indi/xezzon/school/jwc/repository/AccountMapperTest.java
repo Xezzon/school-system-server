@@ -20,8 +20,8 @@ public class AccountMapperTest {
     public void insert() {
         String randomStr = RandomUtil.randomString(8);
         Account account = new Account(randomStr, randomStr);
-        Long id = mapper.insert(account);
-        log.debug("New user id is:{}", id);
-        assert id != null;
+        mapper.insert(account);
+        log.debug("New user id is: {}", account.getId());
+        assert account.getId() != null;
     }
 }
