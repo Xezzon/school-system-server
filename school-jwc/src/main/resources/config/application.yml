@@ -12,13 +12,12 @@ spring:
     property-naming-strategy: SNAKE_CASE
     default-property-inclusion: non_null
 
-mybatis-plus:
+mybatis:
   configuration:
     map-underscore-to-camel-case: true
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
-  global-config:
-    db-config:
-      id-type: auto
+  mapper-locations:
+    - classpath*:mapper/*Mapper.xml
   type-aliases-package: indi.xezzon.school.common.model
   type-handlers-package: indi.xezzon.school.common.typehandler
   type-enums-package: indi.xezzon.school.common.constant.enums
