@@ -21,7 +21,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public void register(String username, String cipher) {
-
+        authenticationService.register(username, cipher);
     }
 
     @PostMapping("/login")
