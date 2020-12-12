@@ -22,7 +22,7 @@ public class CourseController {
 
     @GetMapping("/all")
     public PageResult<Course> getCourses(@RequestParam("page_num") int pageNum, @RequestParam("page_size") int pageSize) {
-        return null;
+        return courseService.getCoursesPaged(pageNum, pageSize);
     }
 
     @PostMapping("/elect")
