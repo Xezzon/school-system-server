@@ -38,6 +38,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public long getCurrentAccountId() {
-        return -1L;
+        Subject subject = SecurityUtils.getSubject();
+        Account account = (Account) subject.getPrincipal();
+        return account != null ? account.getId() : -1L;
     }
 }
