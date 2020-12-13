@@ -26,6 +26,6 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public void login(String username, String cipher) {
-        
+        authenticationService.login(username, cipher);
     }
 }
