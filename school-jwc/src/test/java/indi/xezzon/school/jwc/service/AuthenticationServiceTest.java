@@ -17,6 +17,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void register() {
+        //service.register("test_bcrypt", "test");
         String randomString = RandomUtil.randomString(8);
         service.register(randomString, randomString);
     }
