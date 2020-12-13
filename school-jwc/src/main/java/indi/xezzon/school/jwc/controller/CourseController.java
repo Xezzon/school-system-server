@@ -34,6 +34,6 @@ public class CourseController {
     @DeleteMapping("/elect")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void cancelElectCourse(long courseId) {
-
+        courseService.cancelElectCourse(courseId);
     }
 }
