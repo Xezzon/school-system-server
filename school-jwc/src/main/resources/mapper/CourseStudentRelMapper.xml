@@ -5,4 +5,8 @@
         INSERT INTO course_student_rel(student_id, course_id)
         VALUES (#{studentId}, #{courseId})
     </insert>
+    <delete id="delete">
+        DELETE FROM course_student_rel(student_id, course_id)
+        WHERE student_id = #{studentId} AND course_id = #{courseId}
+    </delete>
 </mapper>

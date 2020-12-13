@@ -15,4 +15,12 @@ public interface CourseStudentRelMapper {
      * @param courseId  课程ID
      */
     void insert(@Param("studentId") long studentId, @Param("courseId") long courseId);
+
+    /**
+     * 退选
+     *
+     * @param studentId 学生ID,即账号ID
+     * @param courseId  课程ID
+     */
+    void delete(@Param("studentId") long studentId, @Param("courseId") long courseId);
 }
