@@ -3,10 +3,7 @@ package indi.xezzon.school.jwc.config;
 import cn.hutool.crypto.digest.BCrypt;
 import indi.xezzon.school.common.model.Account;
 import indi.xezzon.school.jwc.repository.AccountMapper;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -65,6 +62,6 @@ class NormalRealm extends AuthorizingRealm {
 class BcryptCredentialMatcher implements CredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo authenticationInfo) {
-        return BCrypt.checkpw(String.valueOf(authenticationToken.getCredentials()), String.valueOf(authenticationInfo.getCredentials()));
+        return BCrypt.checkpw(String.valueOf(((UsernamePasswordToken)authenticationToken).getPassword()), String.valueOf(authenticationInfo.getCredentials()));
     }
 }
