@@ -1,5 +1,6 @@
 package indi.xezzon.school.jwc.repository;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import indi.xezzon.school.common.model.Account;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ public class AccountMapperTest {
         Account account = new Account(randomStr, randomStr);
         mapper.insert(account);
         log.debug("New user id is: {}", account.getId());
-        assert account.getId() != null;
+        assert ObjectUtil.isNotNull(account.getId());
     }
 
     @Test

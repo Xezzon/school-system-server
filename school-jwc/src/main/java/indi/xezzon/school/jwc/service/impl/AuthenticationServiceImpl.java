@@ -1,5 +1,6 @@
 package indi.xezzon.school.jwc.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import indi.xezzon.school.common.model.Account;
 import indi.xezzon.school.jwc.repository.AccountMapper;
@@ -40,6 +41,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public long getCurrentAccountId() {
         Subject subject = SecurityUtils.getSubject();
         Account account = (Account) subject.getPrincipal();
-        return account != null ? account.getId() : -1L;
+        return ObjectUtil.isNotNull(account) ? account.getId() : -1L;
     }
 }
