@@ -43,4 +43,11 @@ public class AuthenticationServiceTest {
         log.debug("{}", subject);
         assert subject.isAuthenticated();
     }
+
+    @Test
+    public void getCurrentAccountId() {
+        log.debug("Current account id is: {}", service.getCurrentAccountId());
+        service.login("test_bcrypt", "test");
+        log.debug("Current account id is: {}", service.getCurrentAccountId());
+    }
 }
