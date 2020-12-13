@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  *
  * @author xezzon
  */
+@Accessors(chain = true)
 @Getter
 @Setter
 @ToString
@@ -21,4 +23,15 @@ public class PageResult<T> {
     private Integer pageNum;
     private Integer pageSize;
     private List<T> items;
+
+    public PageResult() {
+        super();
+    }
+
+    public PageResult(int total, int pageNum, int pageSize, List<T> items) {
+        this.total = total;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.items = items;
+    }
 }

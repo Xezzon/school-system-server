@@ -18,8 +18,14 @@ public class CourseMapperTest {
     private CourseMapper mapper;
 
     @Test
-    public void selectList() {
-        List<Course> courses = mapper.selectList();
-        log.debug(courses.toString());
+    public void list() {
+        List<Course> courses = mapper.list(0, 20);
+        log.debug("{}", courses);
+    }
+
+    @Test
+    public void count() {
+        int coursesCount = mapper.count();
+        log.debug("{}", coursesCount);
     }
 }
