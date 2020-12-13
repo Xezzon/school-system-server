@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import indi.xezzon.school.common.util.HashidsUtil;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class Account implements Serializable {
     @JsonSerialize(using = AccountIdSerializer.class)
     @JsonDeserialize(using = AccountIdDeserializer.class)
@@ -47,6 +49,11 @@ public class Account implements Serializable {
     private LocalDateTime updatedTime;
 
     private static final long serialVersionUID = 1L;
+
+    public Account(String username, String cipher) {
+        this.username = username;
+        this.cipher = cipher;
+    }
 }
 
 @PropertySource("classpath:config/hashids.properties")
