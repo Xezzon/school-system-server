@@ -6,7 +6,7 @@
         VALUES (#{studentId}, #{courseId})
     </insert>
     <delete id="delete">
-        DELETE FROM course_student_rel(student_id, course_id)
+        DELETE FROM course_student_rel
         WHERE student_id = #{studentId} AND course_id = #{courseId}
     </delete>
 </mapper>
