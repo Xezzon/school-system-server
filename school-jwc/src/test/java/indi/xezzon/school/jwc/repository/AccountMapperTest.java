@@ -24,4 +24,11 @@ public class AccountMapperTest {
         log.debug("New user id is: {}", account.getId());
         assert account.getId() != null;
     }
+
+    @Test
+    public void selectByUsername() {
+        String username = "test001";
+        Account account = mapper.selectByUsername(username);
+        log.debug("{}", account);
+    }
 }
