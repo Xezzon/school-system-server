@@ -29,4 +29,14 @@ public class CourseServiceImpl implements CourseService {
         ret.setTotal(total).setPageNum(pageNum).setPageSize(pageSize).setItems(courses);
         return ret;
     }
+
+    @Override
+    public void electCourse(long courseId) {
+
+    }
+
+    @Override
+    public void cancelElectCourse(long courseId) {
+
+    }
 }

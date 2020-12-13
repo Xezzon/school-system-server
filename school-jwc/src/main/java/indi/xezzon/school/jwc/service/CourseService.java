@@ -15,4 +15,18 @@ public interface CourseService {
      * @return 课程列表
      */
     PageResult<Course> getCoursesPaged(int pageNum, int pageSize);
+
+    /**
+     * 选课
+     *
+     * @param courseId 课程ID
+     */
+    void electCourse(long courseId);
+
+    /**
+     * 退选课
+     *
+     * @param courseId 课程ID
+     */
+    void cancelElectCourse(long courseId);
 }
