@@ -4,6 +4,9 @@ import cn.hutool.crypto.digest.BCrypt;
 import indi.xezzon.school.common.model.Account;
 import indi.xezzon.school.jwc.repository.AccountMapper;
 import indi.xezzon.school.jwc.service.AuthenticationService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +31,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void login(String username, String cipher) {
-
+        UsernamePasswordToken token = new UsernamePasswordToken(username, cipher);
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(token);
     }
 
     @Override
