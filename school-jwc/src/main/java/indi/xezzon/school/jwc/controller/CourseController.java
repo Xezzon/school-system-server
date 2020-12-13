@@ -28,7 +28,7 @@ public class CourseController {
     @PostMapping("/elect")
     @ResponseStatus(code = HttpStatus.CREATED)
     public void electCourse(long courseId) {
-
+        courseService.electCourse(courseId);
     }
 
     @DeleteMapping("/elect")
