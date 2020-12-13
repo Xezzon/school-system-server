@@ -1,6 +1,7 @@
 package indi.xezzon.school.common.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class Account implements Serializable {
     private Long id;
 
@@ -31,4 +33,9 @@ public class Account implements Serializable {
     private LocalDateTime updatedTime;
 
     private static final long serialVersionUID = 1L;
+
+    public Account(String username, String cipher) {
+        this.username = username;
+        this.cipher = cipher;
+    }
 }
