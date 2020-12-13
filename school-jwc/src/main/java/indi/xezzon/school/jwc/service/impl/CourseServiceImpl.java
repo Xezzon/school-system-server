@@ -45,6 +45,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void cancelElectCourse(long courseId) {
-
+        long studentId = authenticationService.getCurrentAccountId();
+        courseStudentRelMapper.delete(studentId, courseId);
     }
 }
