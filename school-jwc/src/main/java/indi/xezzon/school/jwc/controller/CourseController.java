@@ -27,13 +27,13 @@ public class CourseController {
 
     @PostMapping("/elect")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void electCourse(long studentId, long courseId) {
+    public void electCourse(long courseId) {
 
     }
 
     @DeleteMapping("/elect")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void cancelElectCourse(long studentId, long courseId) {
+    public void cancelElectCourse(long courseId) {
 
     }
 }
