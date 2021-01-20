@@ -1,4 +1,4 @@
-package indi.xezzon.school.jwc.repository;
+package indi.xezzon.school.auth.repository;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

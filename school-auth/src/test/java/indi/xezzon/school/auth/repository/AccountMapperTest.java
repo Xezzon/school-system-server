@@ -1,4 +1,4 @@
-package indi.xezzon.school.jwc.repository;
+package indi.xezzon.school.auth.repository;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
