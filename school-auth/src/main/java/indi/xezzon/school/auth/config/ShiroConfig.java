@@ -6,10 +6,14 @@ import indi.xezzon.school.common.model.Account;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,14 +37,15 @@ public class ShiroConfig {
     }
 
     @Bean
-    public DefaultWebSecurityManager securityManager() {
+    public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(normalRealm());
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
-    
+
     @Bean
-    public NormalRealm normalRealm() {
+    public Realm normalRealm() {
         NormalRealm realm = new NormalRealm();
         realm.setCredentialsMatcher(credentialsMatcher());
         return realm;
@@ -49,6 +54,11 @@ public class ShiroConfig {
     @Bean
     public CredentialsMatcher credentialsMatcher() {
         return new BcryptCredentialMatcher();
+    }
+
+    @Bean
+    public SessionManager sessionManager() {
+        return new ServletContainerSessionManager();
     }
 }
 
@@ -76,6 +86,6 @@ class NormalRealm extends AuthorizingRealm {
 class BcryptCredentialMatcher implements CredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo authenticationInfo) {
-        return BCrypt.checkpw(String.valueOf(((UsernamePasswordToken)authenticationToken).getPassword()), String.valueOf(authenticationInfo.getCredentials()));
+        return BCrypt.checkpw(String.valueOf(((UsernamePasswordToken) authenticationToken).getPassword()), String.valueOf(authenticationInfo.getCredentials()));
     }
 }

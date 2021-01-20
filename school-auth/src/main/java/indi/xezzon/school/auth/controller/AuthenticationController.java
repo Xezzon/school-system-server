@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.Serializable;
+
 /**
  * @author xezzon
  */
@@ -29,8 +31,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public void login(String username, String cipher) {
-        authenticationService.login(username, cipher);
+    public Serializable login(String username, String cipher) {
+        return authenticationService.login(username, cipher);
     }
 }
 

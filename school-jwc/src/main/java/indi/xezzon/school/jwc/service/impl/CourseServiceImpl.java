@@ -9,6 +9,7 @@ import indi.xezzon.school.jwc.service.FeignAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -19,6 +20,8 @@ public class CourseServiceImpl implements CourseService {
     private final CourseMapper courseMapper;
     private final CourseStudentRelMapper courseStudentRelMapper;
     private final FeignAuthService authService;
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     public CourseServiceImpl(CourseMapper courseMapper, CourseStudentRelMapper courseStudentRelMapper, FeignAuthService authService) {
@@ -38,13 +41,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void electCourse(long courseId) {
-        long studentId = authService.getCurrentAccountId();
+        long studentId = authService.getCurrentAccountId(session.getId());
         courseStudentRelMapper.insert(studentId, courseId);
     }
 
     @Override
     public void cancelElectCourse(long courseId) {
-        long studentId = authService.getCurrentAccountId();
+        long studentId = authService.getCurrentAccountId(session.getId());
         courseStudentRelMapper.delete(studentId, courseId);
     }
 }
