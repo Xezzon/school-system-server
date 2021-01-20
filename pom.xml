@@ -26,6 +26,7 @@
         <shiro.version>1.7.0</shiro.version>
         <hutool.version>5.3.9</hutool.version>
         <hashids.version>1.0.3</hashids.version>
+        <lombok.version>1.18.16</lombok.version>
         <!-- 插件版本 -->
         <classfinal.version>1.1.8</classfinal.version>
     </properties>
@@ -64,6 +65,11 @@
                 <groupId>org.hashids</groupId>
                 <artifactId>hashids</artifactId>
                 <version>${hashids.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
             <!-- SpringBoot框架 -->
             <dependency>
