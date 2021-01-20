@@ -1,7 +1,7 @@
-package indi.xezzon.school.jwc.controller;
+package indi.xezzon.school.auth.controller;
 
+import indi.xezzon.school.auth.service.AuthenticationService;
 import indi.xezzon.school.common.model.Role;
-import indi.xezzon.school.jwc.service.AuthenticationService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

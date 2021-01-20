@@ -1,11 +1,11 @@
-package indi.xezzon.school.jwc.service.impl;
+package indi.xezzon.school.auth.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.crypto.digest.BCrypt;
+import indi.xezzon.school.auth.repository.AccountMapper;
+import indi.xezzon.school.auth.repository.AccountRoleRelMapper;
+import indi.xezzon.school.auth.service.AuthenticationService;
 import indi.xezzon.school.common.model.Account;
-import indi.xezzon.school.jwc.repository.AccountMapper;
-import indi.xezzon.school.jwc.repository.AccountRoleRelMapper;
-import indi.xezzon.school.jwc.service.AuthenticationService;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;

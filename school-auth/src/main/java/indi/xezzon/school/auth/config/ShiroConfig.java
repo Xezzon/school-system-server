@@ -1,23 +1,37 @@
-package indi.xezzon.school.jwc.config;
+package indi.xezzon.school.auth.config;
 
 import cn.hutool.crypto.digest.BCrypt;
+import indi.xezzon.school.auth.repository.AccountMapper;
 import indi.xezzon.school.common.model.Account;
-import indi.xezzon.school.jwc.repository.AccountMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.LinkedHashMap;
+
 /**
  * @author xezzon
  */
 @Configuration
 public class ShiroConfig {
+    @Bean
+    public ShiroFilterFactoryBean shiroFilter() {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(securityManager());
+
+        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        return shiroFilterFactoryBean;
+    }
+
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();

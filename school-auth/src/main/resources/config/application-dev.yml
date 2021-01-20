@@ -15,4 +15,4 @@ spring:
 
 logging:
   level:
-    indi.xezzon.school.jwc: debug
+    indi.xezzon.school.auth: debug

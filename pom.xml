@@ -10,6 +10,7 @@
     <modules>
         <module>school-common</module>
         <module>school-jwc</module>
+        <module>school-auth</module>
     </modules>
 
     <properties>
@@ -21,12 +22,14 @@
         <!-- 依赖版本 -->
         <springboot.version>2.3.2.RELEASE</springboot.version>
         <springcloud.version>Hoxton.RELEASE</springcloud.version>
+        <springcloud-alibaba.version>2.2.0.RELEASE</springcloud-alibaba.version>
         <mybatis.version>2.1.1</mybatis.version>
         <druid.version>1.1.23</druid.version>
         <shiro.version>1.7.0</shiro.version>
         <hutool.version>5.3.9</hutool.version>
         <hashids.version>1.0.3</hashids.version>
         <lombok.version>1.18.16</lombok.version>
+        <minio.version>8.0.3</minio.version>
         <!-- 插件版本 -->
         <classfinal.version>1.1.8</classfinal.version>
     </properties>
@@ -83,6 +86,13 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${springcloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${springcloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

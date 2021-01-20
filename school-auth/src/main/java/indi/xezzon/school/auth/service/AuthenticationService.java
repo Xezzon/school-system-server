@@ -1,4 +1,4 @@
-package indi.xezzon.school.jwc.service;
+package indi.xezzon.school.auth.service;
 
 import indi.xezzon.school.common.model.Account;
 
