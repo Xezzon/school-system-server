@@ -2,6 +2,8 @@ package indi.xezzon.school.auth.service;
 
 import indi.xezzon.school.common.model.Account;
 
+import java.io.Serializable;
+
 /**
  * @author xezzon
  */
@@ -28,11 +30,11 @@ public interface AuthenticationService {
 
     /**
      * 登录
-     *
-     * @param username 用户名
+     *  @param username 用户名
      * @param cipher   密码
+     * @return 当前会话ID
      */
-    void login(String username, String cipher);
+    Serializable login(String username, String cipher);
 
     /**
      * 当前账号

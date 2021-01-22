@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
+
 /**
  * @author xezzon
  */
@@ -44,10 +46,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public void login(String username, String cipher) {
+    public Serializable login(String username, String cipher) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, cipher);
         Subject subject = SecurityUtils.getSubject();
         subject.login(token);
+        return subject.getSession().getId();
     }
 
     @Override
