@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * @author xezzon
  */
 @RestController
-@RequestMapping("/course")
+@RequestMapping
 public class CourseController {
     private final CourseService courseService;
 
@@ -20,20 +20,20 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("/all")
-    public PageResult<Course> getCourses(@RequestParam("page_num") int pageNum, @RequestParam("page_size") int pageSize) {
+    @GetMapping("/courses")
+    public PageResult<Course> getCourses(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         return courseService.getCoursesPaged(pageNum, pageSize);
     }
 
-    @PostMapping("/elect")
+    @PostMapping("/course/{courseId}/student")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void electCourse(long courseId) {
+    public void electCourse(@PathVariable("courseId") long courseId) {
         courseService.electCourse(courseId);
     }
 
-    @DeleteMapping("/elect")
+    @DeleteMapping("/course/{courseId}/student")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void cancelElectCourse(long courseId) {
+    public void cancelElectCourse(@PathVariable("courseId") long courseId) {
         courseService.cancelElectCourse(courseId);
     }
 }
