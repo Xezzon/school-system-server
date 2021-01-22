@@ -1,15 +1,20 @@
-package indi.xezzon.school.jwc.service.impl;
+package indi.xezzon.school.auth.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.crypto.digest.BCrypt;
+import indi.xezzon.school.auth.repository.AccountMapper;
+import indi.xezzon.school.auth.repository.AccountRoleRelMapper;
+import indi.xezzon.school.auth.service.AuthenticationService;
 import indi.xezzon.school.common.model.Account;
-import indi.xezzon.school.jwc.repository.AccountMapper;
-import indi.xezzon.school.jwc.service.AuthenticationService;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.Serializable;
 
 /**
  * @author xezzon
@@ -17,24 +22,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final AccountMapper accountMapper;
+    private final AccountRoleRelMapper accountRoleRelMapper;
 
     @Autowired
-    public AuthenticationServiceImpl(AccountMapper accountMapper) {
+    public AuthenticationServiceImpl(AccountMapper accountMapper, AccountRoleRelMapper accountRoleRelMapper) {
         this.accountMapper = accountMapper;
+        this.accountRoleRelMapper = accountRoleRelMapper;
     }
 
     @Override
-    public void register(String username, String cipher) {
+    public long register(String username, String cipher) {
         cipher = BCrypt.hashpw(cipher, BCrypt.gensalt());
         Account account = new Account(username, cipher);
         accountMapper.insert(account);
+        return account.getId();
     }
 
     @Override
-    public void login(String username, String cipher) {
+    @Transactional(rollbackFor = PersistenceException.class)
+    public void register(String username, String cipher, long roleId) {
+        long accountId = register(username, cipher);
+        accountRoleRelMapper.insert(accountId, roleId);
+    }
+
+    @Override
+    public Serializable login(String username, String cipher) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, cipher);
         Subject subject = SecurityUtils.getSubject();
         subject.login(token);
+        return subject.getSession().getId();
     }
 
     @Override

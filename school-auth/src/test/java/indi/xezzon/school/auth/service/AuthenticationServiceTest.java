@@ -1,4 +1,4 @@
-package indi.xezzon.school.jwc.service;
+package indi.xezzon.school.auth.service;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class AuthenticationServiceTest {
     public void register() {
         //service.register("test_bcrypt", "test");
         String randomString = RandomUtil.randomString(8);
-        service.register(randomString, randomString);
+        service.register(randomString, randomString, 1);
     }
 
     @Test

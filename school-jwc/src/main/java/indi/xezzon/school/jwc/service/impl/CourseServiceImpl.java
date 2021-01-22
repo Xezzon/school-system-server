@@ -4,11 +4,12 @@ import indi.xezzon.school.common.model.Course;
 import indi.xezzon.school.common.model.PageResult;
 import indi.xezzon.school.jwc.repository.CourseMapper;
 import indi.xezzon.school.jwc.repository.CourseStudentRelMapper;
-import indi.xezzon.school.jwc.service.AuthenticationService;
 import indi.xezzon.school.jwc.service.CourseService;
+import indi.xezzon.school.jwc.service.FeignAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -18,14 +19,15 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
     private final CourseMapper courseMapper;
     private final CourseStudentRelMapper courseStudentRelMapper;
-
-    private final AuthenticationService authenticationService;
+    private final FeignAuthService authService;
+    @Autowired
+    private HttpSession session;
 
     @Autowired
-    public CourseServiceImpl(CourseMapper courseMapper, CourseStudentRelMapper courseStudentRelMapper, AuthenticationService authenticationService) {
+    public CourseServiceImpl(CourseMapper courseMapper, CourseStudentRelMapper courseStudentRelMapper, FeignAuthService authService) {
         this.courseMapper = courseMapper;
         this.courseStudentRelMapper = courseStudentRelMapper;
-        this.authenticationService = authenticationService;
+        this.authService = authService;
     }
 
     @Override
@@ -39,13 +41,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void electCourse(long courseId) {
-        long studentId = authenticationService.getCurrentAccountId();
+        long studentId = authService.getCurrentAccountId(session.getId());
         courseStudentRelMapper.insert(studentId, courseId);
     }
 
     @Override
     public void cancelElectCourse(long courseId) {
-        long studentId = authenticationService.getCurrentAccountId();
+        long studentId = authService.getCurrentAccountId(session.getId());
         courseStudentRelMapper.delete(studentId, courseId);
     }
 }

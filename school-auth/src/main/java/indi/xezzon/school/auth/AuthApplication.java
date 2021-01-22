@@ -1,4 +1,4 @@
-package indi.xezzon.school.jwc;
+package indi.xezzon.school.auth;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -9,15 +9,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author xezzon
- * 教务管理系统启动类
  */
 @SpringBootApplication
-@EnableTransactionManagement
 @EnableFeignClients
 @EnableDiscoveryClient
-@MapperScan("indi.xezzon.school.jwc.repository")
-public class JwcApplication {
+@EnableTransactionManagement
+@MapperScan("indi.xezzon.school.auth.repository")
+public class AuthApplication {
     public static void main(String[] args) {
-        SpringApplication.run(JwcApplication.class, args);
+        SpringApplication.run(AuthApplication.class, args);
     }
 }

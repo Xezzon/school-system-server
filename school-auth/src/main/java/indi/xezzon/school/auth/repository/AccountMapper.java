@@ -1,4 +1,4 @@
-package indi.xezzon.school.jwc.repository;
+package indi.xezzon.school.auth.repository;
 
 import indi.xezzon.school.common.model.Account;
 import org.springframework.stereotype.Repository;

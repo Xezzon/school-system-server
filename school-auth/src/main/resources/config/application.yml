@@ -1,0 +1,27 @@
+server:
+  port: 9221
+spring:
+  application:
+    name: school-auth
+  profiles:
+    active: ${TOMCAT_ENV:dev}
+  mvc:
+    servlet:
+      load-on-startup: 1
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non_null
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+  mapper-locations:
+    - classpath*:mapper/*Mapper.xml
+  type-aliases-package: indi.xezzon.school.common.model
+  type-handlers-package: indi.xezzon.school.common.typehandler
+  type-enums-package: indi.xezzon.school.common.constant.enums
