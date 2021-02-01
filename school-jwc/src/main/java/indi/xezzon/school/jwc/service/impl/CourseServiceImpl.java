@@ -1,5 +1,6 @@
 package indi.xezzon.school.jwc.service.impl;
 
+import cn.hutool.core.lang.Singleton;
 import cn.hutool.core.map.MapBuilder;
 import cn.hutool.core.util.EnumUtil;
 import indi.xezzon.school.common.model.Course;
@@ -24,11 +25,10 @@ import java.util.Map;
 public class CourseServiceImpl implements CourseService {
     private final CourseMapper courseMapper;
     private final FeignAuthService authService;
+    private final RedisTemplate<String, Serializable> redisTemplate;
     @Autowired
     private HttpSession session;
     private final Map<ElectCourseStatusEnum, ElectCourseHandler> electCourseHandlers;
-    @Autowired
-    private final RedisTemplate<String, Serializable> redisTemplate;
 
     @Autowired
     public CourseServiceImpl(CourseMapper courseMapper, FeignAuthService authService, RedisTemplate<String, Serializable> redisTemplate) {
@@ -36,6 +36,7 @@ public class CourseServiceImpl implements CourseService {
         this.authService = authService;
         this.redisTemplate = redisTemplate;
         this.electCourseHandlers = MapBuilder.<ElectCourseStatusEnum, ElectCourseHandler>create()
+                .put(ElectCourseStatusEnum.PRESELECTION, Singleton.get(PreselectCourseHandler.class))
                 .map();
     }
 
@@ -84,4 +85,24 @@ interface ElectCourseHandler {
      * @param studentId 学生ID
      */
     void cancelElectCourse(long courseId, long studentId);
+}
+
+/**
+ * 预选阶段
+ */
+class PreselectCourseHandler implements ElectCourseHandler {
+    @Autowired
+    private RedisTemplate<String, Serializable> redisTemplate;
+
+    @Override
+    public void electCourse(long courseId, long studentId) {
+        redisTemplate.opsForSet().add("school-jwc:elect-course:course:" + courseId, studentId);
+        redisTemplate.opsForSet().add("school-jwc:elect-course:student:" + studentId, courseId);
+    }
+
+    @Override
+    public void cancelElectCourse(long courseId, long studentId) {
+        redisTemplate.opsForSet().remove("school-jwc:elect-course:course:" + courseId, studentId);
+        redisTemplate.opsForSet().remove("school-jwc:elect-course:student:" + studentId, courseId);
+    }
 }
