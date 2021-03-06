@@ -31,6 +31,16 @@ public class Course implements Serializable {
      */
     private Teacher teacher;
 
+    /**
+     * 可选人数
+     */
+    private Long containment;
+
+    /**
+     * 已选人数
+     */
+    private Long population;
+
     private LocalDateTime createdTime;
 
     private LocalDateTime updatedTime;

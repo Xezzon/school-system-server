@@ -1,5 +1,6 @@
 package indi.xezzon.school.jwc.service.impl;
 
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.lang.Singleton;
 import cn.hutool.core.map.MapBuilder;
 import cn.hutool.core.util.EnumUtil;
@@ -26,15 +27,16 @@ public class CourseServiceImpl implements CourseService {
     private final CourseMapper courseMapper;
     private final FeignAuthService authService;
     private final RedisTemplate<String, Serializable> redisTemplate;
-    @Autowired
-    private HttpSession session;
+
+    private final HttpSession session;
     private final Map<ElectCourseStatusEnum, ElectCourseHandler> electCourseHandlers;
 
     @Autowired
-    public CourseServiceImpl(CourseMapper courseMapper, FeignAuthService authService, RedisTemplate<String, Serializable> redisTemplate) {
+    public CourseServiceImpl(CourseMapper courseMapper, FeignAuthService authService, RedisTemplate<String, Serializable> redisTemplate, HttpSession session) {
         this.courseMapper = courseMapper;
         this.authService = authService;
         this.redisTemplate = redisTemplate;
+        this.session = session;
         this.electCourseHandlers = MapBuilder.<ElectCourseStatusEnum, ElectCourseHandler>create()
                 .put(ElectCourseStatusEnum.PRESELECTION, Singleton.get(PreselectCourseHandler.class))
                 .map();
@@ -43,7 +45,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public PageResult<Course> getCoursesPaged(int pageNum, int pageSize) {
         int total = courseMapper.count();
-        List<Course> courses = ((pageNum - 1) * pageSize < total) ? courseMapper.list((pageNum - 1) * pageSize, pageSize) : null;
+        List<Course> courses = ((pageNum - 1) * pageSize < total) ? courseMapper.list((pageNum - 1) * pageSize, pageSize) : ListUtil.empty();
+        ElectCourseHandler electCourseHandler = electCourseHandlers.get(EnumUtil.getEnumMap(ElectCourseStatusEnum.class).get((String) redisTemplate.opsForValue().get("context:status:elect-course")));
+        courses.parallelStream().forEach(course -> {
+            course.setPopulation(electCourseHandler.queryPopulation(course.getId()));
+        });
         PageResult<Course> ret = new PageResult<>();
         ret.setTotal(total).setPageNum(pageNum).setPageSize(pageSize).setItems(courses);
         return ret;
@@ -85,6 +91,14 @@ interface ElectCourseHandler {
      * @param studentId 学生ID
      */
     void cancelElectCourse(long courseId, long studentId);
+
+    /**
+     * 查询指定课程的选课人数
+     *
+     * @param courseId 查询的课程
+     * @return 课程的人数
+     */
+    Long queryPopulation(long courseId);
 }
 
 /**
@@ -93,16 +107,28 @@ interface ElectCourseHandler {
 class PreselectCourseHandler implements ElectCourseHandler {
     @Autowired
     private RedisTemplate<String, Serializable> redisTemplate;
+    private final String coursePrefix;
+    private final String studentPrefix;
+
+    PreselectCourseHandler() {
+        this.coursePrefix = "school-jwc:preselect-course:course:";
+        this.studentPrefix = "school-jwc:preselect-course:student:";
+    }
 
     @Override
     public void electCourse(long courseId, long studentId) {
-        redisTemplate.opsForSet().add("school-jwc:elect-course:course:" + courseId, studentId);
-        redisTemplate.opsForSet().add("school-jwc:elect-course:student:" + studentId, courseId);
+        redisTemplate.opsForSet().add(coursePrefix + courseId, studentId);
+        redisTemplate.opsForSet().add(studentPrefix + studentId, courseId);
     }
 
     @Override
     public void cancelElectCourse(long courseId, long studentId) {
-        redisTemplate.opsForSet().remove("school-jwc:elect-course:course:" + courseId, studentId);
-        redisTemplate.opsForSet().remove("school-jwc:elect-course:student:" + studentId, courseId);
+        redisTemplate.opsForSet().remove(coursePrefix + courseId, studentId);
+        redisTemplate.opsForSet().remove(studentPrefix + studentId, courseId);
+    }
+
+    @Override
+    public Long queryPopulation(long courseId) {
+        return redisTemplate.opsForSet().size(coursePrefix + courseId);
     }
 }
