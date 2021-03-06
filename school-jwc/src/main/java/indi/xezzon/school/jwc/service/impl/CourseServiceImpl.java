@@ -1,7 +1,6 @@
 package indi.xezzon.school.jwc.service.impl;
 
 import cn.hutool.core.collection.ListUtil;
-import cn.hutool.core.lang.Singleton;
 import cn.hutool.core.map.MapBuilder;
 import cn.hutool.core.util.EnumUtil;
 import indi.xezzon.school.common.model.Course;
@@ -37,8 +36,9 @@ public class CourseServiceImpl implements CourseService {
         this.authService = authService;
         this.redisTemplate = redisTemplate;
         this.session = session;
+        /* TODO: 由于ElectCourseHandler不是由容器管理的，所以无法通过注入的方式拿到redisTemplate。这里暂时通过传入redisTemplate来实现，但是这样会导致耦合过紧。 */
         this.electCourseHandlers = MapBuilder.<ElectCourseStatusEnum, ElectCourseHandler>create()
-                .put(ElectCourseStatusEnum.PRESELECTION, Singleton.get(PreselectCourseHandler.class))
+                .put(ElectCourseStatusEnum.PRESELECTION, new PreselectCourseHandler(redisTemplate))
                 .map();
     }
 
@@ -106,11 +106,12 @@ interface ElectCourseHandler {
  */
 class PreselectCourseHandler implements ElectCourseHandler {
     @Autowired
-    private RedisTemplate<String, Serializable> redisTemplate;
+    private final RedisTemplate<String, Serializable> redisTemplate;
     private final String coursePrefix;
     private final String studentPrefix;
 
-    PreselectCourseHandler() {
+    PreselectCourseHandler(RedisTemplate<String, Serializable> redisTemplate) {
+        this.redisTemplate = redisTemplate;
         this.coursePrefix = "school-jwc:preselect-course:course:";
         this.studentPrefix = "school-jwc:preselect-course:student:";
     }
