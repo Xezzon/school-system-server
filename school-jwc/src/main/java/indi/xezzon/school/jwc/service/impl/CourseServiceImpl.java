@@ -11,6 +11,7 @@ import indi.xezzon.school.jwc.service.CourseService;
 import indi.xezzon.school.jwc.service.FeignAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -31,15 +32,14 @@ public class CourseServiceImpl implements CourseService {
     private final Map<ElectCourseStatusEnum, ElectCourseHandler> electCourseHandlers;
 
     @Autowired
-    public CourseServiceImpl(CourseMapper courseMapper, FeignAuthService authService, RedisTemplate<String, Serializable> redisTemplate, HttpSession session) {
+    public CourseServiceImpl(CourseMapper courseMapper, FeignAuthService authService, RedisTemplate<String, Serializable> redisTemplate, HttpSession session, PreselectCourseHandler preselectCourseHandler) {
         this.courseMapper = courseMapper;
         this.authService = authService;
         this.redisTemplate = redisTemplate;
         this.session = session;
 
-        /* TODO: 由于ElectCourseHandler不是由容器管理的，所以无法通过注入的方式拿到redisTemplate。这里暂时通过传入redisTemplate来实现，但是这样会导致耦合过紧。 */
         this.electCourseHandlers = MapBuilder.<ElectCourseStatusEnum, ElectCourseHandler>create()
-                .put(ElectCourseStatusEnum.PRESELECTION, new PreselectCourseHandler(redisTemplate))
+                .put(ElectCourseStatusEnum.PRESELECTION, preselectCourseHandler)
                 .put(ElectCourseStatusEnum.FLASH, new FlashCourseHandler())
                 .map();
     }
@@ -106,12 +106,13 @@ interface ElectCourseHandler {
 /**
  * 预选阶段
  */
+@Component
 class PreselectCourseHandler implements ElectCourseHandler {
-    @Autowired
     private final RedisTemplate<String, Serializable> redisTemplate;
     private final String coursePrefix;
     private final String studentPrefix;
 
+    @Autowired
     PreselectCourseHandler(RedisTemplate<String, Serializable> redisTemplate) {
         this.redisTemplate = redisTemplate;
         this.coursePrefix = "school-jwc:preselect-course:course:";
