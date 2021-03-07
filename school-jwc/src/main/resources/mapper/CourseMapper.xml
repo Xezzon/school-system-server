@@ -5,10 +5,10 @@
         SELECT c.id, c.name, c.credit, t.id as `teacher.id`, t.name as `teacher.name`, c.containment
         FROM course c
         INNER JOIN teacher t
-        WHERE c.teacher_id = t.id
-        LIMIT #{offset}, #{limit};
+        ON c.teacher_id = t.id
+        LIMIT #{offset}, #{limit}
     </select>
     <select id="count" resultType="java.lang.Integer">
-        SELECT COUNT(id) FROM course;
+        SELECT COUNT(id) FROM course
     </select>
 </mapper>
