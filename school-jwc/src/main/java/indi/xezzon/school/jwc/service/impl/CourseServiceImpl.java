@@ -36,9 +36,11 @@ public class CourseServiceImpl implements CourseService {
         this.authService = authService;
         this.redisTemplate = redisTemplate;
         this.session = session;
+
         /* TODO: 由于ElectCourseHandler不是由容器管理的，所以无法通过注入的方式拿到redisTemplate。这里暂时通过传入redisTemplate来实现，但是这样会导致耦合过紧。 */
         this.electCourseHandlers = MapBuilder.<ElectCourseStatusEnum, ElectCourseHandler>create()
                 .put(ElectCourseStatusEnum.PRESELECTION, new PreselectCourseHandler(redisTemplate))
+                .put(ElectCourseStatusEnum.FLASH, new FlashCourseHandler())
                 .map();
     }
 
@@ -131,5 +133,31 @@ class PreselectCourseHandler implements ElectCourseHandler {
     @Override
     public Long queryPopulation(long courseId) {
         return redisTemplate.opsForSet().size(coursePrefix + courseId);
+    }
+}
+
+/**
+ * TODO: 秒杀阶段
+ */
+class FlashCourseHandler implements ElectCourseHandler {
+
+    @Override
+    public void electCourse(long courseId, long studentId) {
+
+    }
+
+    /**
+     * 秒杀阶段不允许退选课，故该函数为空函数
+     *
+     * @param courseId  课程ID
+     * @param studentId 学生ID
+     */
+    @Override
+    public void cancelElectCourse(long courseId, long studentId) {
+    }
+
+    @Override
+    public Long queryPopulation(long courseId) {
+        return null;
     }
 }
