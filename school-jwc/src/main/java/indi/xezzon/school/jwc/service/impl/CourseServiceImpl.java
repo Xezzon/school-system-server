@@ -7,6 +7,7 @@ import indi.xezzon.school.common.model.Course;
 import indi.xezzon.school.common.model.PageResult;
 import indi.xezzon.school.jwc.constant.enums.ElectCourseStatusEnum;
 import indi.xezzon.school.jwc.repository.CourseMapper;
+import indi.xezzon.school.jwc.repository.CourseStudentRelMapper;
 import indi.xezzon.school.jwc.service.CourseService;
 import indi.xezzon.school.jwc.service.FeignAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class CourseServiceImpl implements CourseService {
     private final Map<ElectCourseStatusEnum, ElectCourseHandler> electCourseHandlers;
 
     @Autowired
-    public CourseServiceImpl(CourseMapper courseMapper, FeignAuthService authService, RedisTemplate<String, Serializable> redisTemplate, HttpSession session, PreselectCourseHandler preselectCourseHandler) {
+    public CourseServiceImpl(CourseMapper courseMapper, FeignAuthService authService, RedisTemplate<String, Serializable> redisTemplate, HttpSession session, PreselectCourseHandler preselectCourseHandler, FreedomElectCourseHandler freedomElectCourseHandler) {
         this.courseMapper = courseMapper;
         this.authService = authService;
         this.redisTemplate = redisTemplate;
@@ -41,6 +42,7 @@ public class CourseServiceImpl implements CourseService {
         this.electCourseHandlers = MapBuilder.<ElectCourseStatusEnum, ElectCourseHandler>create()
                 .put(ElectCourseStatusEnum.PRESELECTION, preselectCourseHandler)
                 .put(ElectCourseStatusEnum.FLASH, new FlashCourseHandler())
+                .put(ElectCourseStatusEnum.FLASH, freedomElectCourseHandler)
                 .map();
     }
 
@@ -160,5 +162,39 @@ class FlashCourseHandler implements ElectCourseHandler {
     @Override
     public Long queryPopulation(long courseId) {
         return null;
+    }
+}
+
+/**
+ * 自由选课阶段
+ */
+@Component
+class FreedomElectCourseHandler implements ElectCourseHandler {
+    private final CourseStudentRelMapper courseStudentRelMapper;
+
+    FreedomElectCourseHandler(CourseStudentRelMapper courseStudentRelMapper) {
+        this.courseStudentRelMapper = courseStudentRelMapper;
+    }
+
+    /**
+     * 自由选课阶段直接进行数据库操作。
+     * 进行选课时要判断是否超选，即选课人数超过可选人数。
+     *
+     * @param courseId  课程ID
+     * @param studentId 学生ID
+     */
+    @Override
+    public void electCourse(long courseId, long studentId) {
+        courseStudentRelMapper.insert(studentId, courseId);
+    }
+
+    @Override
+    public void cancelElectCourse(long courseId, long studentId) {
+        courseStudentRelMapper.delete(studentId, courseId);
+    }
+
+    @Override
+    public Long queryPopulation(long courseId) {
+        return (long) courseStudentRelMapper.count(courseId);
     }
 }
