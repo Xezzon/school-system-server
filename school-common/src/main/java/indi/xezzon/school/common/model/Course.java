@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author xezzon
@@ -40,6 +41,8 @@ public class Course implements Serializable {
      * 已选人数
      */
     private Long population;
+
+    private List<CourseSchedule> schedules;
 
     private LocalDateTime createdTime;
 
