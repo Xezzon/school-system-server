@@ -3,7 +3,7 @@
 <mapper namespace="indi.xezzon.school.auth.repository.AccountMapper">
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO account(username, cipher)
-        VALUES (#{username}, #{cipher});
+        VALUES (#{username}, #{cipher})
     </insert>
     <select id="selectByUsername" resultType="indi.xezzon.school.common.model.Account">
         SELECT id, username, cipher, created_time, updated_time
