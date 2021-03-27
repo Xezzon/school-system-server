@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ResultCodeEnum {
     SUCCESS("00000", "操作成功"),
     
-    CLIENT("A0001", "用户端错误"),
+    CLIENT("A0001", "用户端错误"), UNAUTHORIZED("A0300", "没有相应授权"), UNAUTHENTICATED("A0301", "未认证"),
     
     SERVER("B0001", "系统执行错误"),
     
