@@ -4,7 +4,7 @@ import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.map.MapBuilder;
 import cn.hutool.core.util.EnumUtil;
 import indi.xezzon.school.common.model.Course;
-import indi.xezzon.school.common.model.PageResult;
+import indi.xezzon.school.common.model.PagedDTO;
 import indi.xezzon.school.jwc.constant.enums.ElectCourseStatusEnum;
 import indi.xezzon.school.jwc.repository.CourseMapper;
 import indi.xezzon.school.jwc.repository.CourseStudentRelMapper;
@@ -47,16 +47,14 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public PageResult<Course> getCoursesPaged(int pageNum, int pageSize) {
+    public PagedDTO<Course> getCoursesPaged(int pageNum, int pageSize) {
         int total = courseMapper.count();
         List<Course> courses = ((pageNum - 1) * pageSize < total) ? courseMapper.list((pageNum - 1) * pageSize, pageSize) : ListUtil.empty();
         ElectCourseHandler electCourseHandler = electCourseHandlers.get(EnumUtil.getEnumMap(ElectCourseStatusEnum.class).get((String) redisTemplate.opsForValue().get("context:status:elect-course")));
         courses.parallelStream().forEach(course -> {
             course.setPopulation(electCourseHandler.queryPopulation(course.getId()));
         });
-        PageResult<Course> ret = new PageResult<>();
-        ret.setTotal(total).setPageNum(pageNum).setPageSize(pageSize).setItems(courses);
-        return ret;
+        return new PagedDTO<>(total, pageNum, pageSize, courses);
     }
 
     @Override

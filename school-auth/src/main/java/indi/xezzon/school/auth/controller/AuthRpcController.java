@@ -14,7 +14,7 @@ public class AuthRpcController {
     private AuthenticationService authenticationService;
 
     @GetMapping("/account/getCurrentAccountId")
-    public long getCurrentAccountId() {
+    public Long getCurrentAccountId() {
         return authenticationService.getCurrentAccountId();
     }
 }

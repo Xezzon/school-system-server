@@ -1,7 +1,8 @@
 package indi.xezzon.school.jwc.controller;
 
 import indi.xezzon.school.common.model.Course;
-import indi.xezzon.school.common.model.PageResult;
+import indi.xezzon.school.common.model.PagedDTO;
+import indi.xezzon.school.common.model.ResultVO;
 import indi.xezzon.school.jwc.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,19 +22,22 @@ public class CourseController {
     }
 
     @GetMapping("/courses")
-    public PageResult<Course> getCourses(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        return courseService.getCoursesPaged(pageNum, pageSize);
+    public ResultVO<PagedDTO<Course>> getCourses(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+        PagedDTO<Course> courses = courseService.getCoursesPaged(pageNum, pageSize);
+        return new ResultVO<>(courses, "课程列表");
     }
 
     @PostMapping("/course/{courseId}/student")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void electCourse(@PathVariable("courseId") long courseId) {
+    public ResultVO<String> electCourse(@PathVariable("courseId") long courseId) {
         courseService.electCourse(courseId);
+        return new ResultVO<>("选课成功");
     }
 
     @DeleteMapping("/course/{courseId}/student")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void cancelElectCourse(@PathVariable("courseId") long courseId) {
+    public ResultVO<String> cancelElectCourse(@PathVariable("courseId") long courseId) {
         courseService.cancelElectCourse(courseId);
+        return new ResultVO<>("退选课成功");
     }
 }
