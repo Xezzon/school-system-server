@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class AuthRpcController {
+    private final AuthenticationService authenticationService;
+
     @Autowired
-    private AuthenticationService authenticationService;
+    public AuthRpcController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 
     @GetMapping("/account/getCurrentAccountId")
     public Long getCurrentAccountId() {

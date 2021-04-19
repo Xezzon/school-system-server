@@ -7,7 +7,7 @@ import org.hashids.Hashids;
  *
  * @author xezzon
  */
-public class HashidsUtil {
+public final class HashidsUtils {
     public static String encode(long id, String salt) {
         Hashids hashids = new Hashids(salt);
         return hashids.encode(id);

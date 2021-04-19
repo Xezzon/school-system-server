@@ -42,7 +42,7 @@ public class CourseServiceImpl implements CourseService {
         this.electCourseHandlers = MapBuilder.<ElectCourseStatusEnum, ElectCourseHandler>create()
                 .put(ElectCourseStatusEnum.PRESELECTION, preselectCourseHandler)
                 .put(ElectCourseStatusEnum.FLASH, new FlashCourseHandler())
-                .put(ElectCourseStatusEnum.FLASH, freedomElectCourseHandler)
+                .put(ElectCourseStatusEnum.FREEDOM, freedomElectCourseHandler)
                 .map();
     }
 
@@ -51,9 +51,7 @@ public class CourseServiceImpl implements CourseService {
         int total = courseMapper.count();
         List<Course> courses = ((pageNum - 1) * pageSize < total) ? courseMapper.list((pageNum - 1) * pageSize, pageSize) : ListUtil.empty();
         ElectCourseHandler electCourseHandler = electCourseHandlers.get(EnumUtil.getEnumMap(ElectCourseStatusEnum.class).get((String) redisTemplate.opsForValue().get("context:status:elect-course")));
-        courses.parallelStream().forEach(course -> {
-            course.setPopulation(electCourseHandler.queryPopulation(course.getId()));
-        });
+        courses.parallelStream().forEach(course -> course.setPopulation(electCourseHandler.queryPopulation(course.getId())));
         return new PagedDTO<>(total, pageNum, pageSize, courses);
     }
 
