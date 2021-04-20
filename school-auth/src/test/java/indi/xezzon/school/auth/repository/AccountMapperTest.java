@@ -26,7 +26,7 @@ public class AccountMapperTest {
     @Test
     public void selectByUsername() {
         String username = "test001";
-        Account account = mapper.selectByUsername(username);
+        Account account = mapper.queryByUsername(username);
         log.debug("{}", account);
     }
 }

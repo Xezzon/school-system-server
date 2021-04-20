@@ -1,10 +1,7 @@
 package indi.xezzon.school.common.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.io.Serializable;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 /**
  * @author xezzon
@@ -12,7 +9,11 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class Teacher implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Accessors(chain = true)
+public class Teacher extends BaseEntity {
     private Long id;
 
     /**

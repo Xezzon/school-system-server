@@ -1,11 +1,8 @@
 package indi.xezzon.school.common.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -14,7 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Course implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Accessors(chain = true)
+public class Course extends BaseEntity {
     private Long id;
 
     /**
@@ -42,9 +43,13 @@ public class Course implements Serializable {
      */
     private Long population;
 
+    /**
+     * 课程表
+     */
     private List<CourseSchedule> schedules;
 
-    private LocalDateTime createdTime;
-
-    private LocalDateTime updatedTime;
+    /**
+     * 课程类型。1:必修课;2:选修课;
+     */
+    private Integer type;
 }

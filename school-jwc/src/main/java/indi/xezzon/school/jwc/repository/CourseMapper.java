@@ -1,6 +1,7 @@
 package indi.xezzon.school.jwc.repository;
 
 import indi.xezzon.school.common.model.Course;
+import indi.xezzon.school.common.repository.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -10,20 +11,17 @@ import java.util.List;
  * @author xezzon
  */
 @Repository
-public interface CourseMapper {
+public interface CourseMapper extends BaseMapper<Course> {
     /**
-     * 分页查询课程
+     * 查询所有课程
      *
-     * @param offset 偏移值
-     * @param limit  查询条数
-     * @return 该分页下的所有课程
+     * @param param 参数
+     * @param pageNum  页码
+     * @param pageSize 页大小
+     * @param orderBy 排序依据
+     * @param desc 降序
+     * @return 课程
      */
-    List<Course> list(@Param("offset") int offset, @Param("limit") int limit);
-
-    /**
-     * 查询课程数量
-     *
-     * @return 课程数量
-     */
-    int count();
+    @Override
+    List<Course> query(@Param("t") Course param, @Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("orderBy") String orderBy, @Param("desc") Boolean desc);
 }

@@ -48,8 +48,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public PagedDTO<Course> getCoursesPaged(int pageNum, int pageSize) {
-        int total = courseMapper.count();
-        List<Course> courses = ((pageNum - 1) * pageSize < total) ? courseMapper.list((pageNum - 1) * pageSize, pageSize) : ListUtil.empty();
+        int total = courseMapper.count(null);
+        List<Course> courses = ((pageNum - 1) * pageSize < total) ? courseMapper.query(new Course(), (pageNum - 1) * pageSize, pageSize, null, null) : ListUtil.empty();
         ElectCourseHandler electCourseHandler = electCourseHandlers.get(EnumUtil.getEnumMap(ElectCourseStatusEnum.class).get((String) redisTemplate.opsForValue().get("context:status:elect-course")));
         courses.parallelStream().forEach(course -> course.setPopulation(electCourseHandler.queryPopulation(course.getId())));
         return new PagedDTO<>(total, pageNum, pageSize, courses);

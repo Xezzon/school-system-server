@@ -2,6 +2,7 @@ package indi.xezzon.school.jwc.repository;
 
 import indi.xezzon.school.common.model.Course;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,14 @@ public class CourseMapperTest {
 
     @Test
     public void list() {
-        List<Course> courses = mapper.list(0, 20);
+        List<Course> courses = mapper.query(new Course(), 0, 20, "course.name", null);
         log.debug("{}", courses);
+        Assertions.assertNotNull(courses.get(0).getSchedules());
     }
 
     @Test
     public void count() {
-        int coursesCount = mapper.count();
+        int coursesCount = mapper.count(null);
         log.debug("{}", coursesCount);
     }
 }

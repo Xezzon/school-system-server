@@ -15,8 +15,8 @@ public class RoleMapperTest {
     private RoleMapper mapper;
 
     @Test
-    public void getAll() {
-        List<Role> roles = mapper.getAll();
+    public void queryAll() {
+        List<Role> roles = mapper.query(new Role(), null, null, null, null);
         log.debug("{}", roles);
     }
 }
