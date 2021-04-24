@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="indi.xezzon.school.jwc.repository.CourseScheduleMapper">
+    <resultMap id="column" type="indi.xezzon.school.common.model.CourseSchedule">
+        <result property="courseId" column="course_id"/>
+        <result property="startWeek" column="start_week"/>
+        <result property="endWeek" column="end_week"/>
+        <result property="abWeek" column="ab_week"/>
+        <result property="wk" column="wk"/>
+        <result property="tempo" column="tempo"/>
+        <result property="classhour" column="classhour"/>
+        <result property="building" column="building"/>
+        <result property="doorplate" column="doorplate"/>
+    </resultMap>
+    <sql id="column">
+        course_id, start_week, end_week, ab_week, wk, tempo, classhour, building, doorplate
+    </sql>
+
+    <select id="query" resultType="indi.xezzon.school.common.model.CourseSchedule">
+        SELECT <include refid="column"/>
+        FROM v_course_schedule
+        <where>
+            <if test="t.courseId!=null">AND course_id = #{t.courseId}</if>
+            <if test="t.startWeek!=null">AND start_week = #{t.startWeek}</if>
+            <if test="t.endWeek!=null">AND end_week = #{t.endWeek}</if>
+            <if test="t.abWeek!=null">AND ab_week = #{t.abWeek}</if>
+            <if test="t.wk!=null">AND wk = #{t.wk}</if>
+            <if test="t.tempo!=null">AND tempo = #{t.tempo}</if>
+            <if test="t.classhour!=null">AND classhour = #{t.classhour}</if>
+            <if test="t.building!=null">AND building = #{t.building}</if>
+            <if test="t.doorplate!=null">AND doorplate = #{t.doorplate}</if>
+        </where>
+        <if test="pageSize!=null">LIMIT #{pageSize}</if>
+        <if test="pageSize!=null and pageNum != null">OFFSET #{pageNum}</if>
+    </select>
+    <select id="count" resultType="int">
+        SELECT COUNT(1)
+        FROM v_course_schedule
+        <where>
+            <if test="courseId!=null">AND course_id = #{courseId}</if>
+            <if test="startWeek!=null">AND start_week = #{startWeek}</if>
+            <if test="endWeek!=null">AND end_week = #{endWeek}</if>
+            <if test="abWeek!=null">AND ab_week = #{abWeek}</if>
+            <if test="wk!=null">AND wk = #{wk}</if>
+            <if test="tempo!=null">AND tempo = #{tempo}</if>
+            <if test="classhour!=null">AND classhour = #{classhour}</if>
+            <if test="building!=null">AND building = #{building}</if>
+            <if test="doorplate!=null">AND doorplate = #{doorplate}</if>
+        </where>
+    </select>
+    <select id="queryByCourseId" resultMap="column">
+        SELECT <include refid="column"/>
+        FROM v_course_schedule
+        WHERE course_id = #{courseId}
+    </select>
+</mapper>

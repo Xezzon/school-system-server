@@ -2,17 +2,14 @@ package indi.xezzon.school.auth.env;
 
 import indi.xezzon.school.common.model.Account;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @Slf4j
 public class RedisTest {
     @Resource(name = "redisTemplate")

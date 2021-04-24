@@ -1,19 +1,13 @@
 package indi.xezzon.school.auth.repository;
 
 import indi.xezzon.school.common.model.Role;
+import indi.xezzon.school.common.repository.BaseMapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @author xezzon
  */
 @Repository
-public interface RoleMapper {
-    /**
-     * 查询所有角色
-     *
-     * @return 角色列表
-     */
-    List<Role> getAll();
+public interface RoleMapper extends BaseMapper<Role> {
+
 }

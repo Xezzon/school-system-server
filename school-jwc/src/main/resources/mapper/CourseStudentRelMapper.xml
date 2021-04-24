@@ -3,10 +3,23 @@
 <mapper namespace="indi.xezzon.school.jwc.repository.CourseStudentRelMapper">
     <insert id="insert">
         INSERT INTO course_student_rel(student_id, course_id)
-        VALUES (#{studentId}, #{courseId})
+        SELECT course_id, #{studentId} AS student_id
+        FROM (
+            SELECT course_id, COUNT(course_id) AS population
+            FROM course_student_rel
+            WHERE course_id = #{courseId}
+        ) csr
+        LEFT JOIN (SELECT id, containment FROM course) c
+        ON c.id = csr.course_id
+        WHERE population &lt;= containment
     </insert>
     <delete id="delete">
         DELETE FROM course_student_rel
         WHERE student_id = #{studentId} AND course_id = #{courseId}
     </delete>
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(course_id)
+        FROM course_student_rel
+        WHERE course_id = #{course_id}
+    </select>
 </mapper>

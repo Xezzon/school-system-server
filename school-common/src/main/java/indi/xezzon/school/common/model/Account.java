@@ -1,12 +1,7 @@
 package indi.xezzon.school.common.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 /**
  * @author xezzon
@@ -15,7 +10,10 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Account implements Serializable {
+@AllArgsConstructor
+@Builder
+@Accessors(chain = true)
+public class Account extends BaseEntity {
     private Long id;
 
     /**
@@ -27,10 +25,6 @@ public class Account implements Serializable {
      * 密码
      */
     private String cipher;
-
-    private LocalDateTime createdTime;
-
-    private LocalDateTime updatedTime;
 
     private static final long serialVersionUID = 1L;
 

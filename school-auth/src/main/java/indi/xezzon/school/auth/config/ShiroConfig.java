@@ -70,7 +70,7 @@ class NormalRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = (String) authenticationToken.getPrincipal();
 
-        Account account = accountMapper.selectByUsername(username);
+        Account account = accountMapper.queryByUsername(username);
         String cipher = account.getCipher();
         // 脱敏处理
         account.setCipher(null);

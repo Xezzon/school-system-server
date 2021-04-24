@@ -1,6 +1,7 @@
 package indi.xezzon.school.auth.controller;
 
 import indi.xezzon.school.auth.service.AuthenticationService;
+import indi.xezzon.school.common.model.ResultVO;
 import indi.xezzon.school.common.model.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,13 +27,15 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody RegisterParam param) {
+    public ResultVO<String> register(@RequestBody RegisterParam param) {
         authenticationService.register(param.getUsername(), param.getCipher(), param.getRole().getId());
+        return new ResultVO<>("注册成功");
     }
 
     @PostMapping("/login")
-    public Serializable login(String username, String cipher) {
-        return authenticationService.login(username, cipher);
+    public ResultVO<Serializable> login(String username, String cipher) {
+        Serializable sessionId = authenticationService.login(username, cipher);
+        return new ResultVO<>(sessionId, "SessionID");
     }
 }
 

@@ -1,7 +1,7 @@
 package indi.xezzon.school.jwc.service;
 
 import indi.xezzon.school.common.model.Course;
-import indi.xezzon.school.common.model.PageResult;
+import indi.xezzon.school.common.model.PagedDTO;
 
 /**
  * @author xezzon
@@ -14,7 +14,7 @@ public interface CourseService {
      * @param pageSize 每页条数
      * @return 课程列表
      */
-    PageResult<Course> getCoursesPaged(int pageNum, int pageSize);
+    PagedDTO<Course> getCoursesPaged(int pageNum, int pageSize);
 
     /**
      * 选课
