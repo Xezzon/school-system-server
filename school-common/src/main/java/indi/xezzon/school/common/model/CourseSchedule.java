@@ -50,6 +50,11 @@ public class CourseSchedule extends BaseEntity {
     private Integer classhour;
 
     /**
+     * 教室
+     */
+    private Long addressId;
+
+    /**
      * 教学楼
      */
     private String building;

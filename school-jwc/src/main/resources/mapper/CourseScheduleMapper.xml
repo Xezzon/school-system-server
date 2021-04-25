@@ -27,9 +27,12 @@
             <if test="t.wk!=null">AND wk = #{t.wk}</if>
             <if test="t.tempo!=null">AND tempo = #{t.tempo}</if>
             <if test="t.classhour!=null">AND classhour = #{t.classhour}</if>
+            <if test="t.addressId!=null">AND address_id = #{t.addressId}</if>
             <if test="t.building!=null">AND building = #{t.building}</if>
             <if test="t.doorplate!=null">AND doorplate = #{t.doorplate}</if>
         </where>
+        <if test="orderBy!=null">ORDER BY #{orderBy}</if>
+        <if test="orderBy!=null and desc">DESC</if>
         <if test="pageSize!=null">LIMIT #{pageSize}</if>
         <if test="pageSize!=null and pageNum != null">OFFSET #{pageNum}</if>
     </select>
@@ -44,6 +47,7 @@
             <if test="wk!=null">AND wk = #{wk}</if>
             <if test="tempo!=null">AND tempo = #{tempo}</if>
             <if test="classhour!=null">AND classhour = #{classhour}</if>
+            <if test="addressId!=null">AND address_id = #{addressId}</if>
             <if test="building!=null">AND building = #{building}</if>
             <if test="doorplate!=null">AND doorplate = #{doorplate}</if>
         </where>
