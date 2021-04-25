@@ -3,6 +3,8 @@ package indi.xezzon.school.common.model;
 import cn.hutool.core.util.ObjectUtil;
 import lombok.*;
 
+import java.util.Objects;
+
 /**
  * @author xezzon
  */
@@ -35,5 +37,22 @@ public class Department extends BaseEntity {
             sb.append(this.superior).append("/").append(name);
         }
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Department that = (Department) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
