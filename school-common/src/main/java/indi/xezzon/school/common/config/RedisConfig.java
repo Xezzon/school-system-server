@@ -1,5 +1,6 @@
-package indi.xezzon.school.jwc.config;
+package indi.xezzon.school.common.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
@@ -8,6 +9,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import javax.annotation.PostConstruct;
 import java.io.Serializable;
 
 /**
@@ -15,9 +17,15 @@ import java.io.Serializable;
  */
 @Configuration
 public class RedisConfig {
+    @Autowired
+    private final LettuceConnectionFactory connectionFactory;
+
+    public RedisConfig(LettuceConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
     @Bean
-    public RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory connectionFactory) {
+    public RedisTemplate<String, Serializable> redisTemplate() {
         RedisTemplate<String, Serializable> redisTemplate = new RedisTemplate<>();
         RedisSerializer<String> keySerializer = new StringRedisSerializer();
         RedisSerializer<Object> valueSerializer = new GenericJackson2JsonRedisSerializer();
@@ -28,5 +36,11 @@ public class RedisConfig {
         redisTemplate.setHashValueSerializer(valueSerializer);
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
+    }
+
+    @PostConstruct
+    public void init() {
+        RedisTemplate<String, Serializable> redisTemplate = redisTemplate();
+        redisTemplate.opsForValue().setIfAbsent("global-id:account", 10000L);
     }
 }

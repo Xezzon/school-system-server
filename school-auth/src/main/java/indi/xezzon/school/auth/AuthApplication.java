@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * @author xezzon
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "indi.xezzon.school")
 @EnableFeignClients
 @EnableDiscoveryClient
 @EnableTransactionManagement

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author xezzon
  * 教务管理系统启动类
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "indi.xezzon.school")
 @EnableTransactionManagement
 @EnableFeignClients
 @EnableDiscoveryClient
