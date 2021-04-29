@@ -109,6 +109,10 @@ class NormalRealm extends AuthorizingRealm {
 class BcryptCredentialMatcher implements CredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo authenticationInfo) {
-        return BCrypt.checkpw(String.valueOf(((UsernamePasswordToken) authenticationToken).getPassword()), String.valueOf(authenticationInfo.getCredentials()));
+        boolean check = false;
+        if (authenticationToken instanceof  UsernamePasswordToken) {
+            check = BCrypt.checkpw(String.valueOf(((UsernamePasswordToken) authenticationToken).getPassword()), String.valueOf(authenticationInfo.getCredentials()));
+        }
+        return check;
     }
 }
