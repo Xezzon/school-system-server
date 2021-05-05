@@ -1,5 +1,6 @@
 package indi.xezzon.school.common.config;
 
+import indi.xezzon.school.common.constant.RedisPrefixConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,6 @@ public class RedisConfig {
     @PostConstruct
     public void init() {
         RedisTemplate<String, Serializable> redisTemplate = redisTemplate();
-        redisTemplate.opsForValue().setIfAbsent("global-id:account", 10000L);
+        redisTemplate.opsForValue().setIfAbsent(RedisPrefixConstant.GLOBAL_ID + "account", 10000L);
     }
 }
