@@ -1,7 +1,6 @@
 package indi.xezzon.school.jwc.service.impl;
 
 import cn.hutool.core.collection.ListUtil;
-import cn.hutool.core.map.MapBuilder;
 import cn.hutool.core.util.EnumUtil;
 import indi.xezzon.school.common.model.Course;
 import indi.xezzon.school.common.model.PagedDTO;
@@ -39,11 +38,11 @@ public class CourseServiceImpl implements CourseService {
         this.redisTemplate = redisTemplate;
         this.session = session;
 
-        this.electCourseHandlers = MapBuilder.<ElectCourseStatusEnum, ElectCourseHandler>create()
-                .put(ElectCourseStatusEnum.PRESELECTION, preselectCourseHandler)
-                .put(ElectCourseStatusEnum.FLASH, new FlashCourseHandler())
-                .put(ElectCourseStatusEnum.FREEDOM, freedomElectCourseHandler)
-                .map();
+        this.electCourseHandlers = Map.ofEntries(
+                Map.entry(ElectCourseStatusEnum.PRESELECTION, preselectCourseHandler),
+                Map.entry(ElectCourseStatusEnum.FLASH, new FlashCourseHandler()),
+                Map.entry(ElectCourseStatusEnum.FREEDOM, freedomElectCourseHandler)
+        );
     }
 
     @Override
