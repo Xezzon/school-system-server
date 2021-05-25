@@ -14,13 +14,18 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Builder
 @Accessors(chain = true)
-public class Teacher extends BaseEntity {
+public class Student extends BaseEntity {
     private Long accountId;
 
     /**
-     * 教师姓名
+     * 姓名
      */
     private String name;
+
+    /**
+     * 所属班级
+     */
+    private Long klasoId;
 
     /**
      * 性别
@@ -28,14 +33,7 @@ public class Teacher extends BaseEntity {
     private GenderEnum gender;
 
     /**
-     * 电子邮箱
+     * 手机号
      */
-    private String email;
-
-    /**
-     * 简介
-     */
-    private String readme;
-
-    private static final long serialVersionUID = 1L;
+    private String mobile;
 }

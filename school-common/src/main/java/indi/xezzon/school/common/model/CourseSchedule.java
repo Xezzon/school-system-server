@@ -1,5 +1,7 @@
 package indi.xezzon.school.common.model;
 
+import indi.xezzon.school.common.constant.enums.AbWeekEnum;
+import indi.xezzon.school.common.constant.enums.WeekdayEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -30,14 +32,19 @@ public class CourseSchedule extends BaseEntity {
     private Integer endWeek;
 
     /**
-     * 单双周。0:非单双周；1:单周；2:双周；
+     * 单双周
      */
-    private Integer abWeek;
+    private AbWeekEnum abWeek;
+
+    /**
+     * 周课时
+     */
+    private Integer classhourWeek;
 
     /**
      * 周几
      */
-    private Integer wk;
+    private WeekdayEnum weekday;
 
     /**
      * 第几节课
@@ -52,15 +59,7 @@ public class CourseSchedule extends BaseEntity {
     /**
      * 教室
      */
-    private Long addressId;
+    private Room room;
 
-    /**
-     * 教学楼
-     */
-    private String building;
-
-    /**
-     * 门牌号
-     */
-    private String doorplate;
+    private static final long serialVersionUID = 1L;
 }

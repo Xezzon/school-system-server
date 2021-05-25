@@ -34,22 +34,39 @@ public class Course extends BaseEntity {
     private Teacher teacher;
 
     /**
-     * 可选人数
+     * 课程类别 dict.course_type
      */
-    private Long containment;
+    private Integer type;
+
+    /**
+     * 课程属性
+     */
+    private String profile;
+
+    /**
+     * 所属学院
+     */
+    private Long instituteId;
+
+    /**
+     * 课程介绍
+     */
+    private String description;
+
+    /**
+     * 可选人数 为0时不限选课人数
+     */
+    private Integer containment;
 
     /**
      * 已选人数
      */
-    private Long population;
+    private Integer population;
 
     /**
      * 课程表
      */
     private List<CourseSchedule> schedules;
 
-    /**
-     * 课程类型。1:必修课;2:选修课;
-     */
-    private Integer type;
+    private static final long serialVersionUID = 1L;
 }

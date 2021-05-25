@@ -9,7 +9,7 @@
     <name>school-system</name>
     <modules>
         <module>school-common</module>
-        <module>school-jwc</module>
+        <module>school-eams</module>
         <module>school-auth</module>
     </modules>
 
