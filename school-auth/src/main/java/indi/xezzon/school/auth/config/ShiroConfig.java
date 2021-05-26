@@ -2,10 +2,15 @@ package indi.xezzon.school.auth.config;
 
 import cn.hutool.crypto.digest.BCrypt;
 import indi.xezzon.school.auth.repository.AccountMapper;
+import indi.xezzon.school.auth.repository.AccountRoleRelMapper;
+import indi.xezzon.school.auth.repository.RolePermissionMapper;
 import indi.xezzon.school.common.model.Account;
+import indi.xezzon.school.common.model.Permission;
+import indi.xezzon.school.common.model.Role;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
@@ -18,7 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author xezzon
@@ -65,6 +73,10 @@ public class ShiroConfig {
 class NormalRealm extends AuthorizingRealm {
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private AccountRoleRelMapper accountRoleRelMapper;
+    @Autowired
+    private RolePermissionMapper rolePermissionMapper;
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
@@ -79,13 +91,28 @@ class NormalRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        Account account = (Account) principalCollection.getPrimaryPrincipal();
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+
+        Set<Role> roles = accountRoleRelMapper.queryRoleByAccountId(account.getId());
+        Set<Permission> permissions = roles.parallelStream()
+                .map(role -> rolePermissionMapper.queryPermissionByRole(role))
+                .flatMap(Collection::parallelStream)
+                .collect(Collectors.toSet());
+        authorizationInfo.setRoles(roles.parallelStream().map(Role::toString).collect(Collectors.toSet()));
+        authorizationInfo.setRoles(permissions.parallelStream().map(Permission::toString).collect(Collectors.toSet()));
+
+        return authorizationInfo;
     }
 }
 
 class BcryptCredentialMatcher implements CredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo authenticationInfo) {
-        return BCrypt.checkpw(String.valueOf(((UsernamePasswordToken) authenticationToken).getPassword()), String.valueOf(authenticationInfo.getCredentials()));
+        boolean check = false;
+        if (authenticationToken instanceof  UsernamePasswordToken) {
+            check = BCrypt.checkpw(String.valueOf(((UsernamePasswordToken) authenticationToken).getPassword()), String.valueOf(authenticationInfo.getCredentials()));
+        }
+        return check;
     }
 }

@@ -1,7 +1,7 @@
 package indi.xezzon.school.common.model;
 
+import cn.hutool.core.util.ObjectUtil;
 import lombok.*;
-import lombok.experimental.Accessors;
 
 import java.util.Objects;
 
@@ -13,23 +13,29 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Accessors(chain = true)
-public class Role extends BaseEntity {
+public class Department extends BaseEntity {
     private Long id;
 
     private String name;
 
-    private Department department;
+    /**
+     * 上级组织
+     */
+    private Department superior;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 标签
+     */
+    private String etikedo;
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if (department != null) {
-            sb.append(department).append(":");
+        if (ObjectUtil.isNull(this.superior)) {
+            sb.append("/").append(name);
+        } else {
+            sb.append(this.superior).append("/").append(name);
         }
-        sb.append(name);
         return sb.toString();
     }
 
@@ -41,12 +47,12 @@ public class Role extends BaseEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Role role = (Role) o;
-        return id.equals(role.id) && department.equals(role.department);
+        Department that = (Department) o;
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, department);
+        return Objects.hash(id);
     }
 }
