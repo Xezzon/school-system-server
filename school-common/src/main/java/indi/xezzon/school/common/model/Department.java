@@ -24,9 +24,24 @@ public class Department extends BaseEntity {
     private Department superior;
 
     /**
-     * 标签
+     * 机构级别
      */
-    private String etikedo;
+    private Integer level;
+
+    /**
+     * 机构类别 dict.department_type
+     */
+    private Integer type;
+
+    /**
+     * 负责人帐号ID
+     */
+    private Long leader;
+
+    /**
+     * 简介
+     */
+    private String remark;
 
     @Override
     public String toString() {
