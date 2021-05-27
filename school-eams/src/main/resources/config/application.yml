@@ -1,5 +1,7 @@
 server:
   port: 9222
+  servlet:
+    context-path: /easm
 spring:
   application:
     name: school-eams
