@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author xezzon
@@ -97,7 +98,7 @@ interface ElectCourseHandler {
      * @param courseId 查询的课程
      * @return 课程的人数
      */
-    Long queryPopulation(long courseId);
+    Integer queryPopulation(long courseId);
 }
 
 /**
@@ -129,8 +130,8 @@ class PreselectCourseHandler implements ElectCourseHandler {
     }
 
     @Override
-    public Long queryPopulation(long courseId) {
-        return redisTemplate.opsForSet().size(coursePrefix + courseId);
+    public Integer queryPopulation(long courseId) {
+        return Math.toIntExact(Optional.ofNullable(redisTemplate.opsForSet().size(coursePrefix + courseId)).orElse(-1L));
     }
 }
 
@@ -155,7 +156,7 @@ class FlashCourseHandler implements ElectCourseHandler {
     }
 
     @Override
-    public Long queryPopulation(long courseId) {
+    public Integer queryPopulation(long courseId) {
         return null;
     }
 }
@@ -189,7 +190,7 @@ class FreedomElectCourseHandler implements ElectCourseHandler {
     }
 
     @Override
-    public Long queryPopulation(long courseId) {
-        return (long) courseStudentRelMapper.count(courseId);
+    public Integer queryPopulation(long courseId) {
+        return courseStudentRelMapper.count(courseId);
     }
 }
