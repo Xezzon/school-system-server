@@ -2,7 +2,7 @@ server:
   port: 9222
 spring:
   application:
-    name: school-jwc
+    name: 教务管理系统
   profiles:
     active: ${TOMCAT_ENV:dev}
   mvc:
