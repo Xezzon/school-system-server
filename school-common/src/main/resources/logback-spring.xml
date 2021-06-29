@@ -20,53 +20,29 @@
 输出内容：系统逻辑错误信息。数据库定期清理超过15天的操作日志。
 -->
 <configuration>
-    <!--引用默认日志配置-->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <!--使用默认的控制台日志输出实现-->
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-    <!-- 从springboot配制文件中获取应用名称 -->
-    <springProperty scope="context" name="APP_NAME" source="spring.application.name" />
-    <!-- 日志输出格式 -->
-    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg %n" />
-    <!-- 日志路径格式：$CLASSPATH/logs/${appName}-${level}.log.${yyyy-MM-dd} -->
-    <porperty name="FILE_PATH" value="logs/${APP_NAME}-%level.log.%d{yyyy-MM-dd}" />
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="SpringBoot" />
+    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg %n"/>
 
     <!-- DEBUG及以上输出到控制台 -->
-    <appender name="DEBUG" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${PATTERN}</pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-    </appender>
     <!-- INFO输出到数据仓库 -->
 
     <!-- WARN输出到数据库 -->
 
     <!-- WARN输出到文件 -->
-    <appender name="WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-        </filter>
-        <encoder>
-            <pattern>${PATTERN}</pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${FILE_PATH}</fileNamePattern>
-            <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
-            <maxHistory>${LOG_FILE_MAX_HISTORY:-365}</maxHistory>
-        </rollingPolicy>
-    </appender>
+    
     <!-- ERROR输出到数据库 -->
-    <appender>
-    </appender>
 
     <!-- 本工程启用的日志 -->
     <root>
-        <appender-ref ref="DEBUG" />
-        <appender-ref ref="WARN_FILE" />
+        <appender-ref ref="CONSOLE" />
     </root>
     <!-- 对指定包或类使用配置 -->
     <logger name="org.slf4j" level="INFO" />
-    <logger name="org.springframework" level="INFO" />
+    <logger name="springfox" level="INFO" />
+    <logger name="io.swagger" level="INFO" />
+    <logger name="org.springframework" level="INFO" additivity="false" />
+    <logger name="org.hibernate.validator" level="INFO" />
+    <logger name="io.lettuce" level="INFO" />
 </configuration>
