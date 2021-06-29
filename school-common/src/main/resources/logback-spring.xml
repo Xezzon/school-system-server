@@ -31,7 +31,22 @@
     <!-- WARN输出到数据库 -->
 
     <!-- WARN输出到文件 -->
-    
+    <appender name="WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>log/${APP_NAME}-WARN.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
+            <maxHistory>${LOG_FILE_MAX_HISTORY:-365}</maxHistory>
+        </rollingPolicy>
+    </appender>
     <!-- ERROR输出到数据库 -->
 
     <!-- 本工程启用的日志 -->
@@ -45,4 +60,8 @@
     <logger name="org.springframework" level="INFO" additivity="false" />
     <logger name="org.hibernate.validator" level="INFO" />
     <logger name="io.lettuce" level="INFO" />
+
+    <logger name="indi.xezzon.school" level="DEBUG" additivity="false">
+        <appender-ref ref="WARN_FILE" />
+    </logger>
 </configuration>
