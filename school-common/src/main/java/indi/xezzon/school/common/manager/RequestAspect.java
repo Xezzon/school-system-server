@@ -11,7 +11,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.Objects;
 
 /**
@@ -28,7 +28,7 @@ public class RequestAspect {
     @Around("requestAspect()")
     public Object doAround(ProceedingJoinPoint pjp) {
         LocalDateTime beginDateTime = LocalDateTime.now();
-        long beginTimestamp = beginDateTime.toInstant(ZoneOffset.ofHours(8)).toEpochMilli();
+        long beginTimestamp = beginDateTime.atZone(ZoneId.systemDefault()).toEpochSecond();
         String uri = null;
         String method = null;
         String ip = null;
@@ -44,7 +44,7 @@ public class RequestAspect {
             log.error("{} 于北京时间{} {} {}失败 {}", ip, beginDateTime, method, uri, throwable.getMessage());
         }
         long endTimestamp = System.currentTimeMillis();
-        log.debug("ACCESS-: {}于北京时间{}请求{},用时{}ms", ip, beginDateTime, uri, endTimestamp - beginTimestamp);
+        log.debug("ACCESS-: {} 于北京时间 {} 以 {} 请求 {} ,用时 {} ms", ip, beginDateTime, method, uri, endTimestamp - beginTimestamp);
         return result;
     }
 }

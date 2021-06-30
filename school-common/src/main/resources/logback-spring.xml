@@ -68,9 +68,8 @@
     </root>
     <!-- 对指定包或类使用配置 -->
     <logger name="org.slf4j" level="INFO" />
-    <logger name="springfox" level="INFO" />
-    <logger name="io.swagger" level="INFO" />
-    <logger name="org.springframework" level="INFO" additivity="false" />
+    <logger name="org.springframework" level="INFO" />
+    <logger name="io.netty" level="WARN" />
     <logger name="org.hibernate.validator" level="INFO" />
     <logger name="io.lettuce" level="INFO" />
     <logger name="org.mongodb" level="INFO" />
