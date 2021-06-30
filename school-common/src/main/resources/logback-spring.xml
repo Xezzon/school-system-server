@@ -55,7 +55,13 @@
         </rollingPolicy>
     </appender>
     <!-- ERROR输出到数据库 -->
-
+    <appender name="ERROR_DB" class="indi.xezzon.school.common.manager.MongoLogbackAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
     <!-- 本工程启用的日志 -->
     <root>
         <appender-ref ref="CONSOLE" />
@@ -67,9 +73,11 @@
     <logger name="org.springframework" level="INFO" additivity="false" />
     <logger name="org.hibernate.validator" level="INFO" />
     <logger name="io.lettuce" level="INFO" />
+    <logger name="org.mongodb" level="INFO" />
 
     <logger name="indi.xezzon.school" level="DEBUG" additivity="false">
         <appender-ref ref="DEBUG_CONSOLE" />
         <appender-ref ref="WARN_FILE" />
+        <appender-ref ref="ERROR_DB" />
     </logger>
 </configuration>

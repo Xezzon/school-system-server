@@ -22,7 +22,6 @@ spring:
         max-idle: 8
         min-idle: 0
     timeout: 3000ms
-
-logging:
-  level:
-    indi.xezzon.school.jwc: debug
+  data:
+    mongodb:
+      uri: mongodb://school:123456@localhost:27017/school
