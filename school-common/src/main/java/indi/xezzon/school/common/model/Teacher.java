@@ -1,5 +1,7 @@
 package indi.xezzon.school.common.model;
 
+import cn.hutool.core.util.DesensitizedUtil;
+import indi.xezzon.school.common.annotaion.DesensitizedType;
 import indi.xezzon.school.common.constant.enums.GenderEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -20,6 +22,7 @@ public class Teacher extends BaseEntity {
     /**
      * 教师姓名
      */
+    @DesensitizedType(DesensitizedUtil.DesensitizedType.CHINESE_NAME)
     private String name;
 
     /**
