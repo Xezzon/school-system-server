@@ -145,6 +145,11 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${springboot.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-dependencies</artifactId>
+                    <version>${springboot.version}</version>
+                </plugin>
                 <!-- 字节码加密 -->
                 <plugin>
                     <groupId>net.roseboy</groupId>
